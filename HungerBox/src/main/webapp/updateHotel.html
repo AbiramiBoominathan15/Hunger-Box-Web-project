@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Hotel Details</title>
+<link rel="stylesheet" href="">
+</head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+.form-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; 
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+</style>
+<body>
+<div class="form-container">
+  <h2>Hotel Details</h2>
+  <form action="AdminUpdateServlet" method="post">
+    <div class="input-group">
+      <label for="hotel_name">Hotel Name</label>
+      <input type="text" id="hotel_name" name="name" required>
+    </div>
+    <div class="input-group">
+      <label for="hotel_location">Hotel Location</label>
+      <input type="text" id="hotel_location" name="location" required>
+    </div>
+    <div class="input-group">
+      <label for="hotel_phonenumber">Hotel Phone Number</label>
+      <input type="text" id="hotel_phonenumber" name="phonenumber" required>
+    </div>
+    <button type="submit">submit</button>
+  </form>
+</div>
+</body>
+</html>

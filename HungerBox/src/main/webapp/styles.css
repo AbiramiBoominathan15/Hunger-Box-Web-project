@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+
+}
+
+.container {
+    text-align: center;
+}
+
+.login-background {
+    background-size: cover;
+    background-position: left;
+    padding: 20px;
+}
+.login-box {
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-left: 650px; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+}
+form {
+    text-align: center; 
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="password"]
+input[type="mailid"] {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-button {
+    background-color: #AA336A;
+    color: #fff;
+    /* padding: 10px 20px; */
+    padding:5px 10px ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display:inline-block ;
+    margin-top: 10px; 
+
+}
+.login-button1 {
+    background-color: #AA336A;
+    color: #fff;
+    /* padding: 10px 20px; */
+    padding:5px 10px ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display:inline-block ;
+    margin-top: 10px; 
+    margin-right: 98px; 
+
+
+}
+
+
+.login-button:hover {
+    background-color: #ff69b4;
+}
