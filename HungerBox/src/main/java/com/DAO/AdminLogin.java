@@ -11,8 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model.Hotel;
+import com.model.UserDetails;
 
 /**
  * Servlet implementation class AdminLogin
@@ -48,6 +50,13 @@ public class AdminLogin extends HttpServlet {
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
 		try {
 			HungerImplements.hotelDetails(hotel);
+			Hotel hotelId = implement.getHotelId(hotel);
+			HttpSession session = request.getSession();
+			//System.out.println(hotelId);
+			session.setAttribute("hotelId", hotelId);
+
+			
+			
 			List<Hotel> list = implement.read1();
 			request.setAttribute("list", list);
 
@@ -68,10 +77,12 @@ public class AdminLogin extends HttpServlet {
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 		String phonenumber= request.getParameter("phonenumber");
+		String mailId=request.getParameter("mailId");
 		String adminName = "abirami@13";
 		String adminPassword = "abirami#23";
-		String adminphonenumber="9092685133";		
-		if (name.equals(adminName) && password.equals(adminPassword)&& phonenumber.equals(adminphonenumber)) {
+		String adminphonenumber="9092685133";
+		String MailId="abiramiboominathan@gmail.com";
+		if (name.equals(adminName) && password.equals(adminPassword)&& phonenumber.equals(adminphonenumber)&& mailId.equals(MailId)) {
 			response.sendRedirect("Hotel1.html");
 		} else {
 			response.sendRedirect("AdminLogin.html");

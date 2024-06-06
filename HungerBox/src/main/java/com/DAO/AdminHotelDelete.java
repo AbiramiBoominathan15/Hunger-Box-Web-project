@@ -26,6 +26,9 @@ public class AdminHotelDelete extends HttpServlet {
 	HungerImplements implement = new HungerImplements();
 
        
+	
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */

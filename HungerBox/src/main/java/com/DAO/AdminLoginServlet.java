@@ -91,8 +91,9 @@ public class AdminLoginServlet extends HttpServlet {
 		user.setPassword(request.getParameter("password"));
 		user.setCity(request.getParameter("city"));
 		user.setMailId(request.getParameter("mailId"));
-		System.out.println("phonenumber:" + phoneNumber);
+		
 		try {
+			System.out.println("phonenumber:" + phoneNumber);
 			implement.userlogin(user);
 			List<UserDetails> list = implement.read();
 			request.setAttribute("list", list);
@@ -135,7 +136,8 @@ public class AdminLoginServlet extends HttpServlet {
 //
 //				System.out.println("method calling");
 //				if (implement.userlogin(user)) {
-//					System.out.println("1");
+//	
+//	System.out.println("1");
 //					HttpSession session = request.getSession();
 //					session.setAttribute("name", name);
 //					session.setAttribute("phonenumber", phoneNumber);

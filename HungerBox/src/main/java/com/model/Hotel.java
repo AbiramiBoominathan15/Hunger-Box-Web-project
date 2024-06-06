@@ -11,6 +11,8 @@ public class Hotel {
 	public String feedback;
 
 	public int getHotelId() {
+		
+		
 		return hotelId;
 	}
 	public void setHotelId(int hotelId) {

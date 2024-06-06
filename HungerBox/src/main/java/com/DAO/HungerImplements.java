@@ -79,36 +79,37 @@ public class HungerImplements implements HungerDAO {
 
 	public boolean userlogin(UserDetails user) throws ClassNotFoundException, SQLException {
 		Connection connection = HungerConnection.getConnection();
+		System.out.println(user.getName() + "" + user.getPhoneNumber() + "" + user.getPassword() + ""
+				+ user.getCity() + "" + user.getMailId());
+		
         String query = "SELECT * FROM User_Details WHERE name=? AND phone_number=? AND password=? AND mail_id=?";
 
 //		String query = "SELECT * FROM User_Details WHERE mail_id = ?";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		preparedStatement.setString(1, user.getMailId());
-		ResultSet resultSet = preparedStatement.executeQuery();
-		System.out.println("User already exists");
+		preparedStatement.setString(1, user.getName());
+		preparedStatement.setString(2, user.getPhoneNumber());
+		preparedStatement.setString(3, user.getPassword());
+		preparedStatement.setString(4, user.getMailId());
 
-		if (resultSet.next()) {
-			System.out.println("User not exists");
-		} else {
-			String save = "INSERT INTO User_Details (name, phone_number, city, password, mail_id) VALUES (?, ?, ?, ?, ?)";
+
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+
+		if (!resultSet.next()) {
+			String save = "INSERT INTO User_Details (name, phone_number, password, city, mail_id) VALUES (?, ?, ?, ?, ?)";
 			preparedStatement = connection.prepareStatement(save);
-			System.out.println(user.getName() + "" + user.getPhoneNumber() + "" + user.getCity() + ""
-					+ user.getPassword() + "" + user.getMailId());
+			
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getPhoneNumber());
-			preparedStatement.setString(3, user.getCity());
-			preparedStatement.setString(4, user.getPassword());
+			preparedStatement.setString(3, user.getPassword());
+			preparedStatement.setString(4, user.getCity());
 			preparedStatement.setString(5, user.getMailId());
-
-			int rowsAffected = preparedStatement.executeUpdate();
-			if (rowsAffected > 0) {
-				System.out.println("Registration successful");
-				return true;
-			} else {
-				System.out.println("Registration failed");
-			}
-
+			preparedStatement.execute();
+			System.out.println("Registration successful");
 		}
+
+
 		resultSet.close();
 		preparedStatement.close();
 		connection.close();
@@ -129,6 +130,21 @@ public class HungerImplements implements HungerDAO {
 		return password;
 
 	}
+	public static boolean login(UserDetails user)throws ClassNotFoundException, SQLException {
+		Connection connection = HungerConnection.getConnection();
+
+		String query = "SELECT name from User_Details WHERE name= ? AND password=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setString(1,user.getName());
+		preparedStatement.setString(2,user.getPassword());
+		ResultSet resultSet = preparedStatement.executeQuery();
+		 if(resultSet.next()) {
+			 return true;
+		 }
+		 return false;
+		
+	}
+
 
 	@Override
 	public void adminLogin(String name, String password) throws ClassNotFoundException, SQLException {
@@ -295,7 +311,8 @@ public class HungerImplements implements HungerDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(save);
 			System.out.println(food.getHotelId()+ "" + food.getFoodImage() + ""
 					+ food.getFoodName()+""+food.getFoodPrice()+ "" + food.getFoodCategories());
-							
+			
+			
 			preparedStatement.setInt(1, food.getHotelId());
 			preparedStatement.setBytes(2,food.getFoodImage());
 			preparedStatement.setString(3,food.getFoodName());
@@ -346,5 +363,38 @@ public class HungerImplements implements HungerDAO {
     return foodlist;
 }
 
+	public UserDetails getUserId(UserDetails user)
+            throws ClassNotFoundException, SQLException {
+        Connection connection = HungerConnection.getConnection();
+        String query = "SELECT * FROM User_Details WHERE mail_id=?";
+        PreparedStatement p = connection.prepareStatement(query);
+        p.setString(1, user.getMailId());
+        ResultSet rows = p.executeQuery();
+        if (rows.next()) {
+        	user.setUserId(rows.getInt("user_id"));
+        	user.setName(rows.getString("name"));
+        	user.setPhoneNumber(rows.getString("phone_number"));
+        	user.setPassword(rows.getString("password"));
+        	user.setCity(rows.getString("city"));
+            user.setMailId(rows.getString("email"));
+            return user;
+        }
+        return null;
+    }
+	public Hotel getHotelId(Hotel hotel)
+            throws ClassNotFoundException, SQLException {
+        Connection connection = HungerConnection.getConnection();
+        String query = "SELECT * FROM Hotels_Details WHERE hotel_name=?";
+        PreparedStatement p = connection.prepareStatement(query);
+        p.setString(1, hotel.getHotelName());
+        ResultSet rows = p.executeQuery();
+        if (rows.next()) {
+        	hotel.setHotelName("hotel_name");
+        	hotel.setHotelLocation("hotel_location");
+        	hotel.setHotelPhoneNumber("hotel_phonenumber");
+            return hotel;
+        }
+        return null;
+    }
 
 }

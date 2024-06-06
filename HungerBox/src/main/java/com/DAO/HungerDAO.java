@@ -8,6 +8,9 @@ import com.model.UserDetails;
 
 		public void adminLogin(String name ,String password) throws ClassNotFoundException, SQLException;
 
+		
+		
+		
 	}
 
 

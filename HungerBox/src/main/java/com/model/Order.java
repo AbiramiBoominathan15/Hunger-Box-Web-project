@@ -10,6 +10,15 @@ public class Order {
     public String orderDelivery;
 
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public Order() {
     }
 

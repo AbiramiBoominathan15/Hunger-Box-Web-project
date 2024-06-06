@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model.Hotel;
 import com.model.UserDetails;
@@ -45,45 +47,51 @@ public class UserLogin extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String name = request.getParameter("name");
 		String phoneNumber = request.getParameter("phonenumber");
 		String password = request.getParameter("password");
-		String mailId=request.getParameter("mailid");
+		String mailId = request.getParameter("mailid");
 		user.setName(request.getParameter("name"));
 		user.setPhoneNumber(request.getParameter("phonenumber"));
 		user.setPassword(request.getParameter("password"));
-		
 
-		
-		String adminName = "abirami@13";
-		String adminPassword = "abirami#23";
-		String adminphonenumber="9092685133";
-		String MailId="abiramiboominathan15@gmail.com";
-		
-		if (name.equals(adminName) && password.equals(adminPassword)&& phoneNumber.equals(adminphonenumber)&& mailId.equals(MailId)) {
-			response.sendRedirect("Hotel1.html");
-		} else {
-			try
-			 {
-				 if(implement.userlogin(user)) {
-						response.sendRedirect("MenuDisplay.jsp");
-				 }
-				 else {
-					 response.sendRedirect("LoginPage.html");
-				 }
+		if (name.equals("abirami213") && password.equals("abirami1123")) {
+			System.out.println(name);
 
-				}	catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-					response.sendRedirect("LoginPage.html");
-				
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel1.html");
+			dispatcher.forward(request, response);
 
-					
-				}
-			
+		} else if (name.equals("hotelsuki") && password.equals("hotelsuki12")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Hote1.html");
+			dispatcher.forward(request, response);
+
 		}
-}
+
+		else {
+			try {
+				if (implement.login(user)) {
+					
+					
+					UserDetails userId = implement.getUserId(user);
+					System.out.println(userId);
+					HttpSession session = request.getSession();
+					System.out.println(userId);
+					session.setAttribute("userId", userId);
+					response.sendRedirect("MenuDisplay.jsp");
+				} else {
+					response.sendRedirect("LoginPage.html");
+				}
+			} catch (ClassNotFoundException | SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

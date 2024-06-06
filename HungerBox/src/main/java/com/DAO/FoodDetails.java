@@ -64,6 +64,8 @@ public class FoodDetails extends HttpServlet {
         }
 
 		
+        
+        
 		food.setHotelId(hotelId);
 		food.setFoodName(request.getParameter("foodName"));
 		food.setFoodCategories(request.getParameter("foodCategory"));
@@ -72,6 +74,7 @@ public class FoodDetails extends HttpServlet {
 
 		try {
 			implement.foodDetails(food);
+			
 //			List<UserDetails> list = implement.read();
 //			request.setAttribute("list", list);
 

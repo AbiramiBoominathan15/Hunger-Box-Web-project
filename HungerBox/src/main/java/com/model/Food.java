@@ -56,6 +56,7 @@ public class Food {
 		this.foodPrice = foodPrice;
 		this.foodCategories = foodCategories;
 		this.foodImage = foodImage;
+		
 	}
 	public Food() {
 		// TODO Auto-generated constructor stub

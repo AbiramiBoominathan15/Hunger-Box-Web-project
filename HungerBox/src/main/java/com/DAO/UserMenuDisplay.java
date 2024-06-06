@@ -49,18 +49,18 @@ public class UserMenuDisplay extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		 try {
-	            // Retrieve book details from the database
+	          
 	            List<Food> foodlist = implement.read2();
-	            
-	            // Set the attribute for the JSP page
+	 
 	            request.setAttribute("foodlist", foodlist);
 
-	            // Forward to JSP page
+	           
+	            
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("MenuDisplay.jsp");
 	            dispatcher.forward(request, response);
 	        } catch (SQLException | ClassNotFoundException e) {
 	            e.printStackTrace();
-	            // Handle exceptions
+	           
 	        }
 	    }
 }
