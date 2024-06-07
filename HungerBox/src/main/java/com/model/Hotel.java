@@ -13,6 +13,15 @@ public class Hotel {
 	public int getHotelId() {
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return hotelId;
 	}
 	public void setHotelId(int hotelId) {

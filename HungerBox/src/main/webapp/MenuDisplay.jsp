@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.model.*"%>
+<%@ page import="com.model.Hotel"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,6 +148,7 @@ input {
 </style>
 <script>
     function incrementQuantity(foodId) {
+    	console.log(foodId);
         var quantityInput = document.getElementById('quantity_' + foodId);
         var quantityValue = parseInt(quantityInput.value);
         quantityInput.value = quantityValue + 1;
@@ -164,6 +166,17 @@ input {
 </script>
 
 </head>
+
+
+
+
+
+
+
+
+
+
+
 <body>
 	<div class="nav">
 		<div class="logo">
@@ -174,10 +187,9 @@ input {
 		</div>
 		<ul>
 			<li><a class="active" href="#">Home</a></li>
-			<li><a href="#">Menu</a></li>
-			<li><a href="#">Service</a></li>
 			<li><a href="#">AboutUs</a></li>
-			<li><a href="#">Gallery</a></li>
+			<li><a href="#">Contact</a></li>
+			<li><a href="#">Cart</a></li>
 		</ul>
 		<div>
 			<a class="signin" href="LoginPage.html">Sign In</a> <input
@@ -194,16 +206,16 @@ input {
 		for (Food food : foodlist) {
 			byte[] imageBytes = food.getFoodImage();
 			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+			System.out.println("food_id = "+food.getFoodId());
 	%>
 	<div class="card">
 		<img src="data:image/jpeg;base64,<%=base64Image%>" alt="Book Cover"
 			style="width: 200px; height: 200px;">
 		<div class="card-details">
+			<h1><%=food.getHotelName()%></h1>
 			<h2><%=food.getFoodCategories()%></h2>
 			<h3><%=food.getFoodName()%></h3>
-			<p>
-			
-				Price:
+			<p>	Price:
 				<%=food.getFoodPrice()%></p>
 			<!-- You can add more details here -->
 			<div class="quantity-selector">
@@ -214,19 +226,10 @@ input {
 					type="button" value="+"
 					onclick="incrementQuantity(<%=food.getFoodId()%>)">
 			</div>
-			<div class="quantity-selector1">
-				<input type="button" value="-"
-					onclick="decrementQuantity(<%=food.getFoodId()%>)"> <input
-					type="text" id="quantity_<%=food.getFoodId()%>"
-					name="quantity_<%=food.getFoodId()%>" value="0"> <input
-					type="button" value="+"
-					onclick="incrementQuantity(<%=food.getFoodId()%>)">
-			</div>
-
 			<form action="" method="post">
 				<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
 				<input type="hidden" id="quantity_input_<%=food.getFoodId()%>"
-					name="quantity" value="0"> <input type="submit"
+					name="quantity_" value="0"> <input type="submit"
 					value="Add to Cart">
 			</form>
 
