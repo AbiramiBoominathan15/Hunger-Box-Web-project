@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.DAO.HungerImplements;
 import com.model.CartItem;
+import com.model.UserDetails;
 
 /**
  * Servlet implementation class AddCart
@@ -44,21 +46,42 @@ public class AddCart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int userId = Integer.parseInt(request.getParameter("user_id"));
-		int foodId = Integer.parseInt(request.getParameter("foodId"));
-        double price = Double.parseDouble(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        
-        double totalPrice = price * quantity;
-		CartItem cartItem = new CartItem(userId, foodId, quantity, totalPrice);
+		System.out.println("hi");
+		HttpSession session = request.getSession();
 
+		UserDetails userId = (UserDetails) session.getAttribute("userId");
+		System.out.println("user  :" + userId.getUserId());
+		int foodId = Integer.parseInt(request.getParameter("foodId"));
+		System.out.println(foodId);
+
+		int price = Integer.parseInt(request.getParameter("price"));
+		System.out.println(price);
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		System.out.println(quantity);
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		double totalPrice = price * quantity;
+		System.out.println(totalPrice);
+		CartItem cartItem = new CartItem();
+		cartItem.setUserId(userId.getUserId());
+		cartItem.setFoodId(foodId);
+		cartItem.setQuantity(quantity);
+		cartItem.setTotalPrice(totalPrice);
+
+		// CartItem cartItem = new CartItem(userId, foodId, quantity, totalPrice);
+
+		// cartItem.setFoodId(request.getParameter("foodId"));
 		try {
-			boolean success = HungerImplements.addCartItem(cartItem);
-			if (success) {
-				response.sendRedirect("LoginPage.html");
-			} else {
-				response.sendRedirect("");
-			}
+			HungerImplements.addCartItem(cartItem);
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");

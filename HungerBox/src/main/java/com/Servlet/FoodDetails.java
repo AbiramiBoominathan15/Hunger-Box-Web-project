@@ -106,11 +106,20 @@ public class FoodDetails extends HttpServlet {
 
 		try {
 			implement.foodDetails(food);
+			
 			System.out.println(food.foodId);
 			HttpSession session = request.getSession();
 			session.setAttribute("foodId", food.foodId);
 
 
+			
+			
+			
+			
+			
+			
+			
+			
 //			List<UserDetails> list = implement.read();
 //			request.setAttribute("list", list);
 

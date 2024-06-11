@@ -81,6 +81,10 @@ public class AdminUpdateServlet extends HttpServlet {
             list=implement.read1();    
             
             
+            
+            
+            
+            
              
         }
         catch (ClassNotFoundException | SQLException e) {

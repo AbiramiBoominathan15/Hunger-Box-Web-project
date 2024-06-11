@@ -26,6 +26,7 @@ public class AdminLogin extends HttpServlet {
 	List<Hotel> list = new ArrayList<Hotel>();
 	Hotel hotel = new Hotel();
 	HungerImplements implement = new HungerImplements();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -34,40 +35,32 @@ public class AdminLogin extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	//	HttpSession session = request.getSession();
-	//	response.getWriter().append("Served at: ").append(request.getContextPath());
+		@SuppressWarnings("unused")
 		String hotelName = request.getParameter("name");
-	//	String sessioHotelName = (String) session.getAttribute("name");
+		@SuppressWarnings("unused")
 		String hotelLocation = request.getParameter("location");
+		@SuppressWarnings("unused")
 		String hotelPhoneNumber = request.getParameter("phonenumber");
 
-	//	System.out.println("sessioHotelName ---> " + sessioHotelName);
+		
+		
+		
+		
+		
+		
 		hotel.setHotelName(request.getParameter("name"));
 		hotel.setHotelLocation(request.getParameter("location"));
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
 		try {
-			HungerImplements.hotelDetails(hotel);
-	//		int hotelId = implement.HotelId(sessioHotelName);
-			
-			//System.out.println(hotelId);
-		//	session.setAttribute("hotelId", hotelId);
-			
-
-			
+			if(HungerImplements.hotelDetails(hotel)) {
+				
+			}
 			
 			List<Hotel> list = implement.read1();
 			request.setAttribute("list", list);
@@ -79,27 +72,24 @@ public class AdminLogin extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
-		String phonenumber= request.getParameter("phonenumber");
-		String mailId=request.getParameter("mailId");
+		String phonenumber = request.getParameter("phonenumber");
+		String mailId = request.getParameter("mailId");
 		String adminName = "abirami@13";
 		String adminPassword = "abirami#23";
-		String adminphonenumber="9092685133";
-		String MailId="abiramiboominathan@gmail.com";
-		if (name.equals(adminName) && password.equals(adminPassword)&& phonenumber.equals(adminphonenumber)&& mailId.equals(MailId)) {
+		String adminphonenumber = "9092685133";
+		String MailId = "abiramiboominathan@gmail.com";
+		if (name.equals(adminName) && password.equals(adminPassword) && phonenumber.equals(adminphonenumber)
+				&& mailId.equals(MailId)) {
 			response.sendRedirect("Hotel1.html");
 		} else {
 			response.sendRedirect("AdminLogin.html");
 		}
 
 	}
-	
+
 }

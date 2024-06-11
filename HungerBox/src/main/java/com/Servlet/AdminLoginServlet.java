@@ -104,6 +104,13 @@ public class AdminLoginServlet extends HttpServlet {
 		user.setCity(request.getParameter("city"));
 		user.setMailId(request.getParameter("mailId"));
 		
+		
+		
+		
+		
+		
+		
+		
 		try {
 			System.out.println("phonenumber:" + phoneNumber);
 			implement.userlogin(user);

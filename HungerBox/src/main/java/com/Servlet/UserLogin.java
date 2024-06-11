@@ -1,4 +1,4 @@
-package com.DAO;
+package com.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.DAO.HungerImplements;
 import com.model.Hotel;
 import com.model.UserDetails;
 
@@ -52,43 +53,55 @@ public class UserLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String name = request.getParameter("name");
 		String phoneNumber = request.getParameter("phonenumber");
 		String password = request.getParameter("password");
-		String mailId = request.getParameter("mailid");
+		String mailId = request.getParameter("Mailid");
 		user.setName(request.getParameter("name"));
 		user.setPhoneNumber(request.getParameter("phonenumber"));
+		user.setMailId(request.getParameter("Mailid"));
 		user.setPassword(request.getParameter("password"));
 
-		if (name.equals("abirami213") && password.equals("abirami1123")) {
+		if ( password.equals("abirami1123")&&mailId.equals("abiramiboominathan@gmail.com")) {
 			System.out.println(name);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel1.html");
 			dispatcher.forward(request, response);
 
-		} else if (name.equals("hotelsuki") && password.equals("hotelsuki12")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hote1.html");
+		} else if (password.equals("hotelsuki12")&&mailId.equals("hotelfood12@gmail.com")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotelmenu.html");
 			dispatcher.forward(request, response);
 
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		else {
 			try {
 				if (implement.login(user)) {
-					
-					
 					UserDetails userId = implement.getUserId(user);
-					System.out.println(userId);
+
 					HttpSession session = request.getSession();
-					System.out.println(userId);
+					if (userId != null) {
+						 System.out.println(userId);
+
+					}
+
 					session.setAttribute("userId", userId);
+					
 					response.sendRedirect("MenuDisplay.jsp");
 				} else {
 					response.sendRedirect("LoginPage.html");
 				}
 			} catch (ClassNotFoundException | SQLException | IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		}

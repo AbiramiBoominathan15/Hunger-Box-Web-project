@@ -22,6 +22,17 @@ public class Hotel {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return hotelId;
 	}
 	public void setHotelId(int hotelId) {

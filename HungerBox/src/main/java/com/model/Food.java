@@ -67,6 +67,15 @@ public class Food {
 		this.availability = availability;
 	}
 	@Override
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String toString() {
 		return "Food [foodId=" + foodId + ", hotelId=" + hotelId + ", hotelName=" + hotelName + ", foodName=" + foodName
 				+ ", foodPrice=" + foodPrice + ", foodCategories=" + foodCategories + ", foodImage="

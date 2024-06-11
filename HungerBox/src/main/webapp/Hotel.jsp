@@ -89,6 +89,14 @@ td {
 
 
 
+
+
+
+
+
+
+
+
 			<td><%=hotel.getHotelName()%></td>
 			<td><%=hotel.getHotelLocation()%></td>
 			<td><%=hotel.getHotelPhoneNumber()%></td>

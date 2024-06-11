@@ -81,6 +81,17 @@ public class UserDetails {
 //				+ getMailId() + ", getAdminName()=" + getAdminName() + ", getAdminPassword()=" + getAdminPassword()
 //				+ "]";
 //	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	public UserDetails(int userId2, String name2, String phoneNumber2, String password2, String city2, String mail_id) {
 //		super();
 //		this.userId = userId;

@@ -1,35 +1,37 @@
 package com.Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.DAO.HungerImplements;
+import com.model.Food;
 import com.model.Hotel;
 import com.model.UserDetails;
 
 /**
- * Servlet implementation class AdminHotelDelete
+ * Servlet implementation class UserMenuDisplay
  */
-@WebServlet("/AdminHotelDelete")
-public class AdminHotelDelete extends HttpServlet {
+@WebServlet("/UserMenuDisplay")
+public class UserMenuDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	List<Hotel> list = new ArrayList<Hotel>();
-	Hotel hotel = new Hotel();
+	List<Food> foodlist = new ArrayList<Food>();
+	Food food = new Food();
 	HungerImplements implement = new HungerImplements();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdminHotelDelete() {
+	public UserMenuDisplay() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,33 +52,31 @@ public class AdminHotelDelete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String name = request.getParameter("delete");
-		hotel.setHotelName(name);
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 		try {
-			implement.deleteHotel(name);
-			PrintWriter writer = response.getWriter();
-			writer.println(hotel.getHotelName() + " deleted");
-			List<Hotel> list = implement.read1();
-			request.setAttribute("list", list);
+			HttpSession session = request.getSession(false);
+			@SuppressWarnings("unused")
+			UserDetails user = (UserDetails) session.getAttribute("userId");
 
-			request.getRequestDispatcher("Hotel.jsp").forward(request, response);
+			
+			
+			
+			
+			
+			
+			
+			
+			@SuppressWarnings("static-access")
+			List<Food> foodlist = implement.read2();
 
-		} catch (ClassNotFoundException | SQLException e) {
+			request.setAttribute("foodlist", foodlist);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("MenuDisplay.jsp");
+			dispatcher.forward(request, response);
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 
 		}
-
 	}
-
 }

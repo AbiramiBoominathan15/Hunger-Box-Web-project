@@ -134,9 +134,9 @@ public class HungerImplements implements HungerDAO {
 	public static boolean login(UserDetails user) throws ClassNotFoundException, SQLException {
 		Connection connection = HungerConnection.getConnection();
 
-		String query = "SELECT name from User_Details WHERE name= ? AND password=?";
+		String query = "SELECT name from User_Details WHERE mail_id= ? AND password=?";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		preparedStatement.setString(1, user.getName());
+		preparedStatement.setString(1, user.getMailId());
 		preparedStatement.setString(2, user.getPassword());
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if (resultSet.next()) {
@@ -507,12 +507,20 @@ public static boolean addCartItem(CartItem cartItem) throws ClassNotFoundExcepti
     Connection connection = HungerConnection.getConnection(); 
     
     String save = "INSERT INTO Cart_Items (user_id, food_id, quantity, totalprice) VALUES (?, ?, ?, ?)";
+    System.out.println("Parameters: user_id=" + cartItem.getUserId() + ", food_id=" + cartItem.getFoodId() + ", quantity=" + cartItem.getQuantity() + ", totalprice=" + cartItem.getTotalPrice()); 
+
+    
+    
+    
+    
+    
+    
+    
     PreparedStatement preparedStatement = connection.prepareStatement(save);
-    ResultSet result= preparedStatement.executeQuery();
     preparedStatement.setInt(1, cartItem.getUserId());
     preparedStatement.setInt(2, cartItem.getFoodId());
     preparedStatement.setInt(3, cartItem.getQuantity());
-    preparedStatement.setInt(4, cartItem.getTotalPrice());
+    preparedStatement.setDouble(4, cartItem.getTotalPrice());
     
     int rowsAffected = preparedStatement.executeUpdate();
     
@@ -524,5 +532,22 @@ public static boolean addCartItem(CartItem cartItem) throws ClassNotFoundExcepti
         return false;
     }
 }
+
+//public Hotel gethotelId(Hotel hotel)
+//        throws ClassNotFoundException, SQLException {
+//    Connection connection = HungerConnection.getConnection();
+//    String query = "SELECT * FROM Hotels_Details WHERE hotel_name=?";
+//    PreparedStatement p = connection.prepareStatement(query);
+//    p.setString(1, hotel.getHotelName());
+//    ResultSet rows = p.executeQuery();
+//    if (rows.next()) {
+//    	hotel.setHotelId(rows.getInt("hotel_id"));
+//    	hotel.setHotelName(rows.getString("hotel_name"));
+//    	hotel.setHotelLocation(rows.getString("hotel_location"));
+//    	hotel.setHotelPhoneNumber(rows.getNString("hotel_phonenumber"));
+//        return hotel;
+//    }
+//    return null;
+//}
 
 }
