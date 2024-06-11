@@ -70,13 +70,17 @@ public class UserDetails {
 	}
 	@Override
 	public String toString() {
-		return "UserDetails [userId=" + userId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", password="
-				+ password + ", city=" + city + ", mailId=" + mailId + ", adminName=" + adminName + ", adminPassword="
-				+ adminPassword + ", getUserId()=" + getUserId() + ", getName()=" + getName() + ", getPhoneNumber()="
-				+ getPhoneNumber() + ", getPassword()=" + getPassword() + ", getCity()=" + getCity() + ", getMailId()="
-				+ getMailId() + ", getAdminName()=" + getAdminName() + ", getAdminPassword()=" + getAdminPassword()
-				+ "]";
+	    return "UserDetails [userId=" + userId + "]";
 	}
+
+//	public String toString() {
+//		return "UserDetails [userId=" + userId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", password="
+//				+ password + ", city=" + city + ", mailId=" + mailId + ", adminName=" + adminName + ", adminPassword="
+//				+ adminPassword + ", getUserId()=" + getUserId() + ", getName()=" + getName() + ", getPhoneNumber()="
+//				+ getPhoneNumber() + ", getPassword()=" + getPassword() + ", getCity()=" + getCity() + ", getMailId()="
+//				+ getMailId() + ", getAdminName()=" + getAdminName() + ", getAdminPassword()=" + getAdminPassword()
+//				+ "]";
+//	}
 //	public UserDetails(int userId2, String name2, String phoneNumber2, String password2, String city2, String mail_id) {
 //		super();
 //		this.userId = userId;

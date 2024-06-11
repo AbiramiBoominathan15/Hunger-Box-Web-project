@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.CartItem;
 import com.model.Food;
 import com.model.Hotel;
 import com.model.UserDetails;
@@ -309,75 +310,176 @@ public class HungerImplements implements HungerDAO {
 		}
 		return false;
 	}
+private void syso() {
+	//System.out.println("comment it");
 
-	public static List<Food> read2() throws ClassNotFoundException, SQLException {
-
-		int hour = java.time.LocalTime.now().getHour();
-
-		String mealTime = "";
-		if (hour >= 6 && hour < 12) {
-			mealTime = "Breakfast";
-		} else if (hour >= 12 && hour < 17) {
-			mealTime = "Lunch";
-		} else {
-			mealTime = "Dinner";
-		}
-
-		List<Food> foodlist = new ArrayList<>();
-		Connection connection = HungerConnection.getConnection();
-		String update = "select * from Food_Details where meal_time = ?";
-		PreparedStatement ps = connection.prepareStatement(update);
-		ps.setString(1, mealTime);
-		ResultSet rs = ps.executeQuery();
-
-		try {
-			while (rs.next()) {
-				Food food = new Food();
-				food.setFoodId(rs.getInt("food_id"));
-				food.setHotelId(rs.getInt("hotel_id"));
-				food.setHotelName(rs.getString("hotel_name"));
-				food.setFoodImage(rs.getBytes("food_image"));
-				food.setFoodName(rs.getString("food_name"));
-				food.setFoodPrice(rs.getInt("food_price"));
-				food.setFoodCategories(rs.getString("food_catagories"));
-				food.setFoodsession(rs.getString("meal_time"));
-
-				foodlist.add(food);
-			}
-		} finally {
-
-			if (rs != null) {
-				rs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
-			if (connection != null) {
-				connection.close();
-			}
-		}
-
-		return foodlist;
-	}
-
-//	public UserDetails getUserId(UserDetails user)
-//            throws ClassNotFoundException, SQLException {
-//        Connection connection = HungerConnection.getConnection();
-//        String query = "SELECT * FROM User_Details WHERE mail_id=?";
-//        PreparedStatement p = connection.prepareStatement(query);
-//        p.setString(1, user.getMailId());
-//        ResultSet rows = p.executeQuery();
-//        if (rows.next()) {
-//        	user.setUserId(rows.getInt("user_id"));
-//        	user.setName(rows.getString("name"));
-//        	user.setPhoneNumber(rows.getString("phone_number"));
-//        	user.setPassword(rows.getString("password"));
-//        	user.setCity(rows.getString("city"));
-//            user.setMailId(rows.getString("email"));
-//            return user;
+}
+//	public static List<Food> read2() throws ClassNotFoundException, SQLException {
+//
+//		int hour = java.time.LocalTime.now().getHour();
+//
+//		String mealTime = "";
+//		if (hour >= 6 && hour < 12) {
+//			mealTime = "Breakfast";
+//		} else if (hour >= 12 && hour < 17) {
+//			mealTime = "Lunch";
+//		} else {
+//			mealTime = "Dinner";
+//		}
+//
+//		List<Food> foodlist = new ArrayList<>();
+//		Connection connection = HungerConnection.getConnection();
+//		String update = "select * from Food_Details where meal_time = ?";
+//	//	System.out.println("new add");
+//        if (!mealTime.equalsIgnoreCase("Breakfast") && hour >= 12) {
+//            update = "select * from Food_Details where meal_time = 'Lunch'";
 //        }
-//        return null;
-//    }
+//    	//	System.out.println("new add");
+//
+//		PreparedStatement ps = connection.prepareStatement(update);
+//		ps.setString(1, mealTime);
+//		ResultSet rs = ps.executeQuery();
+//
+//		try {
+//			while (rs.next()) {
+//				Food food = new Food();
+//				food.setFoodId(rs.getInt("food_id"));
+//				food.setHotelId(rs.getInt("hotel_id"));
+//				food.setHotelName(rs.getString("hotel_name"));
+//				food.setFoodImage(rs.getBytes("food_image"));
+//				food.setFoodName(rs.getString("food_name"));
+//				food.setFoodPrice(rs.getInt("food_price"));
+//				food.setFoodCategories(rs.getString("food_catagories"));
+//				food.setFoodsession(rs.getString("meal_time"));
+//	//		System.out.println("new add");	
+//		        if (!mealTime.equalsIgnoreCase("Breakfast") && !mealTime.equalsIgnoreCase("Lunch") && hour >= 12) {
+//		            update = "select * from Food_Details where meal_time in ('Lunch', 'Dinner')";
+//		        
+//	                food.setAvailability("Unavailable");
+//	            } else {
+//	                food.setAvailability("Available");
+//	            }
+//	        	//		System.out.println("new add end ");	
+//
+//
+//				foodlist.add(food);
+//			}
+//		} finally {
+//
+//			if (rs != null) {
+//				rs.close();
+//			}
+//			if (ps != null) {
+//				ps.close();
+//			}
+//			if (connection != null) {
+//				connection.close();
+//			}
+//		}
+//
+//		return foodlist;
+//	}
+
+
+private void syso1() {
+	//System.out.println("comment it");
+
+}
+public static List<Food> read2() throws ClassNotFoundException, SQLException {
+    int hour = java.time.LocalTime.now().getHour();
+
+    String mealTime = "";
+    if (hour >= 6 && hour < 12) {
+        mealTime = "Breakfast";
+    } else if (hour >= 12 && hour < 17) {
+        mealTime = "Lunch";
+    } else {
+        mealTime = "Dinner";
+    }
+
+    List<Food> foodlist = new ArrayList<>();
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        connection = HungerConnection.getConnection();
+        String update = "select * from Food_Details where meal_time = ?";
+        // Modify the query based on the conditions
+        if (!mealTime.equalsIgnoreCase("Breakfast") && !mealTime.equalsIgnoreCase("Lunch") && hour >= 12) {
+            update = "select * from Food_Details where meal_time in ( 'Dinner')";
+            // No need to set parameter since we are selecting foods for both lunch and dinner
+            ps = connection.prepareStatement(update);
+        } else {
+            // Otherwise, select foods for the specific meal time
+            update = "select * from Food_Details where meal_time = ?";
+            ps = connection.prepareStatement(update);
+            // Set the parameter to the current meal time
+            ps.setString(1, mealTime);
+        }
+//        ps = connection.prepareStatement(update);
+//        ps.setString(1, mealTime);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Food food = new Food();
+            food.setFoodId(rs.getInt("food_id"));
+            food.setHotelId(rs.getInt("hotel_id"));
+            food.setHotelName(rs.getString("hotel_name"));
+            food.setFoodImage(rs.getBytes("food_image"));
+            food.setFoodName(rs.getString("food_name"));
+            food.setFoodPrice(rs.getInt("food_price"));
+            food.setFoodCategories(rs.getString("food_catagories"));
+            food.setFoodsession(rs.getString("meal_time"));
+
+            if (mealTime.equals("Lunch") && hour >= 17) {
+                food.setAvailability("Unavailable");
+            } else if (mealTime.equals("Breakfast") && hour >= 12) {
+                food.setAvailability("Unavailable");
+            } else {
+                food.setAvailability("Available");
+            }
+
+
+            foodlist.add(food);
+        }
+    } finally {
+        // Close resources in finally block
+        if (rs != null) {
+            rs.close();
+        }
+        if (ps != null) {
+            ps.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+
+    return foodlist;
+}
+
+
+
+
+	public UserDetails getUserId(UserDetails user)
+            throws ClassNotFoundException, SQLException {
+        Connection connection = HungerConnection.getConnection();
+        String query = "SELECT * FROM User_Details WHERE mail_id=?";
+        PreparedStatement p = connection.prepareStatement(query);
+        p.setString(1, user.getMailId());
+        ResultSet rows = p.executeQuery();
+        if (rows.next()) {
+        	user.setUserId(rows.getInt("user_id"));
+        	user.setName(rows.getString("name"));
+        	user.setPhoneNumber(rows.getString("phone_number"));
+        	user.setPassword(rows.getString("password"));
+        	user.setCity(rows.getString("city"));
+            user.setMailId(rows.getString("mail_id"));
+            return user;
+        }
+        return null;
+    }
 //	public int HotelId(String name)
 //            throws ClassNotFoundException, SQLException {
 //        Connection connection = HungerConnection.getConnection();
@@ -400,5 +502,27 @@ public class HungerImplements implements HungerDAO {
 //        }
 //        return 0;
 //    }
+
+public static boolean addCartItem(CartItem cartItem) throws ClassNotFoundException, SQLException {
+    Connection connection = HungerConnection.getConnection(); 
+    
+    String save = "INSERT INTO Cart_Items (user_id, food_id, quantity, totalprice) VALUES (?, ?, ?, ?)";
+    PreparedStatement preparedStatement = connection.prepareStatement(save);
+    ResultSet result= preparedStatement.executeQuery();
+    preparedStatement.setInt(1, cartItem.getUserId());
+    preparedStatement.setInt(2, cartItem.getFoodId());
+    preparedStatement.setInt(3, cartItem.getQuantity());
+    preparedStatement.setInt(4, cartItem.getTotalPrice());
+    
+    int rowsAffected = preparedStatement.executeUpdate();
+    
+    if (rowsAffected > 0) {
+        System.out.println("CartItem added successfully");
+        return true;
+    } else {
+        System.out.println("Failed to add CartItem");
+        return false;
+    }
+}
 
 }

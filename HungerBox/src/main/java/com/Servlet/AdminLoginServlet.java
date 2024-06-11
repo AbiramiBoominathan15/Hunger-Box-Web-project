@@ -1,4 +1,4 @@
-package com.DAO;
+package com.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.DAO.HungerImplements;
 import com.model.Hotel;
 import com.model.UserDetails;
 
@@ -29,6 +30,17 @@ public class AdminLoginServlet extends HttpServlet {
 	Hotel hotel = new Hotel();
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

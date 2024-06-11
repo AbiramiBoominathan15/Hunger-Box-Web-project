@@ -1,4 +1,4 @@
-package com.DAO;
+package com.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.DAO.HungerImplements;
 import com.model.Hotel;
 import com.model.UserDetails;
 
@@ -33,6 +34,13 @@ public class AdminLogin extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -40,20 +48,24 @@ public class AdminLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	//	HttpSession session = request.getSession();
+	//	response.getWriter().append("Served at: ").append(request.getContextPath());
 		String hotelName = request.getParameter("name");
+	//	String sessioHotelName = (String) session.getAttribute("name");
 		String hotelLocation = request.getParameter("location");
 		String hotelPhoneNumber = request.getParameter("phonenumber");
 
+	//	System.out.println("sessioHotelName ---> " + sessioHotelName);
 		hotel.setHotelName(request.getParameter("name"));
 		hotel.setHotelLocation(request.getParameter("location"));
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
 		try {
 			HungerImplements.hotelDetails(hotel);
-			Hotel hotelId = implement.getHotelId(hotel);
-			HttpSession session = request.getSession();
+	//		int hotelId = implement.HotelId(sessioHotelName);
+			
 			//System.out.println(hotelId);
-			session.setAttribute("hotelId", hotelId);
+		//	session.setAttribute("hotelId", hotelId);
+			
 
 			
 			

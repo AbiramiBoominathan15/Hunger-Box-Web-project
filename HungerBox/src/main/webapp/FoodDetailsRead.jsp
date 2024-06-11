@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.model.*"%>
@@ -15,21 +15,8 @@ body {
 
 h1 {
 	text-align: center;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	color: blue;
 }
-
-
 
 a {
 	text-decoration: none;
@@ -43,7 +30,7 @@ table {
 }
 
 th {
-	background-color: skyblue; 
+	background-color: skyblue;
 	color: white;
 }
 
@@ -83,7 +70,7 @@ td {
 			<th>Name</th>
 			<th>Price</th>
 			<th>Catagories</th>
-		    <th colspan="2">Actions</th>
+			<th colspan="2">Actions</th>
 		</tr>
 		<%
 		List<Food> list = (ArrayList<Food>) request.getAttribute("list");
@@ -92,10 +79,10 @@ td {
 		%>
 		<tr>
 			<td><%=food.getHotelId()%></td>
-						<td><%=food.getFoodImage()%></td>
-						<td><%=food.getFoodName()%></td>
-					     <td><%=food.getFoodPrice()%></td>
-						<td><%=food.getFoodCategories()%></td>	
+			<td><%=food.getFoodImage()%></td>
+			<td><%=food.getFoodName()%></td>
+			<td><%=food.getFoodPrice()%></td>
+			<td><%=food.getFoodCategories()%></td>
 			<%
 			}
 			}

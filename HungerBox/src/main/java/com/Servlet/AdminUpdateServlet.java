@@ -1,4 +1,4 @@
-package com.DAO;
+package com.Servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.DAO.HungerImplements;
 import com.model.Hotel;
 
 /**
@@ -25,6 +26,15 @@ public class AdminUpdateServlet extends HttpServlet {
 	HungerImplements implement = new HungerImplements();
 
        
+	
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */

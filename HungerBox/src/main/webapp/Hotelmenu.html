@@ -5,24 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Food Details</title>
 <style>
+.btn-submit {
+	background-color: #ba4357;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-left: 50%;
+}
+
+.btn-submit:hover {
+	background-color: rgb(147, 24, 44);
+}
+
+
+.form-group #foodName {
+	margin-left: 0%;
+}
+
+.form-group #foodPrice {
+	margin-left: 0%;
+}
+
+.form-group #foodDescription {
+	width: 43%;
+}
+
+.form-group #foodDescription {
+	margin-left: 0%;
+}
+
+.form-group label[for="foodimage"] {
+	display: inline-block;
+	width: 100px;
+	vertical-align: top;
+}
+
+.form-group input[type="text"], .form-group input[type="number"],
+	.form-group select, .form-group textarea, .form-group input[type="file"]
+	{
+	width: calc(65% - 244px);
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.form-group select {
+	margin-right: 0;
+}
+
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
 	margin: 0;
 	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
 }
 
 .form-container {
 	background-color: lightgreen;
-	height: 90%;
 	width: 90%;
 	padding: 20px;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-top: 50px;
+	margin-left: 50px;
 }
 
 .form-container h2 {
@@ -32,91 +80,12 @@ body {
 
 .form-group {
 	margin-bottom: 20px;
-	width: 37%;
-	display: inline-block;
-	padding-left: 41px;
 }
 
 .form-group label {
 	display: block;
 	font-weight: bold;
 	margin-bottom: 5px;
-}
-
-.form-group input[type="text"], .form-group input[type="number"] {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	box-sizing: border-box;
-}
-
-.form-group input[type="file"] {
-	width: calc(100% - 16px);
-	padding: 25px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	box-sizing: border-box;
-}
-
-.form-group select {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	box-sizing: border-box;
-	margin-right: 12px;
-}
-
-.btn-submit {
-	background-color: pink;
-	color: #fff;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 3px;
-	cursor: pointer;
-	/* margin: 0 auto; */
-	/* margin: 0 auto; */
-	/* width: 36%; */
-	/* margin-right: 40%;  */
-	/* margin-top: 25px;  */
-	position: relative;
-	/* left: 100px; */
-	right: 380px;
-	top: 25px;
-	/* margin-top: 50%; */
-}
-
-.btn-submit:hover {
-	background-color: rgb(147, 24, 44);
-}
-
-.form-group #foodName {
-	margin-left: 50%;
-}
-
-.form-group #foodPrice {
-	margin-left: 50%;
-}
-
-.form-group #foodDescription {
-	width: 100%;
-}
-
-.form-group #foodDescription {
-	margin-left: 50%;
-}
-
-.form-group label[for="foodimage"] {
-	display: inline-block;
-	width: 100px;
-	vertical-align: top;
-}
-
-.form-group input[type="file"] {
-	display: inline-block;
-	width: calc(100% - 100px);
-	vertical-align: top;
 }
 </style>
 </head>
@@ -132,7 +101,6 @@ body {
 				<label for="hotelName">HotelName:</label> <input type="text"
 					id="hotelName" name="hotelname" required>
 			</div>
-
 			<div class="form-group">
 				<label for="foodName " id="foodName">Food Name:</label> <input
 					type="text" id="foodName" name="foodName" required>
@@ -145,21 +113,13 @@ body {
 					<option value="Non-veg">Non-Veg</option>
 				</select>
 			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-					<div class="form-group">
+			<div class="form-group">
 				<label for="foodSession">MealSession:</label> <select
 					id="foodSession" name="foodSession" required>
 					<option value="">Select Category</option>
 					<option value="Breakfast">Breakfast</option>
 					<option value="Lunch">Lunch</option>
-	                <option value="Dinner">Dinner</option>
+					<option value="Dinner">Dinner</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -172,7 +132,6 @@ body {
 					type="number" id="foodQuantity" name="foodQuantity" min="0"
 					step="0.01" required>
 			</div>
-
 			<div class="form-group">
 				<label for="foodimage" id="foodimage">Food Image:</label> <input
 					type="file" name="image" accept="image/*">
@@ -182,7 +141,7 @@ body {
 					Description:</label>
 				<textarea id="foodDescription" name="foodDescription" rows="4"
 					placeholder="Enter food description"></textarea>
-			</div class="submit">
+			</div>
 			<button type="submit" class="btn-submit">Submit</button>
 		</form>
 	</div>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.model.*"%>
@@ -68,7 +68,7 @@ td {
 			<th>HotelName</th>
 			<th>HotelLocation</th>
 			<th>Phonenumber</th>
-		    <th colspan="2">Actions</th>
+			<th colspan="2">Actions</th>
 		</tr>
 		<%
 		List<Hotel> list1 = (ArrayList<Hotel>) request.getAttribute("list");
@@ -76,42 +76,42 @@ td {
 			for (Hotel hotel : list1) {
 		%>
 		<tr>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<td><%= hotel.getHotelName() %></td>
-		<td><%= hotel.getHotelLocation() %></td>
-		<td><%= hotel.getHotelPhoneNumber() %></td>
-				<td><input type="hidden" name="location"
-				value="<%= hotel.getHotelName() %>"> <a
-				href="updateHotel.html?editId=<%= hotel.getHotelPhoneNumber() %>">
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<td><%=hotel.getHotelName()%></td>
+			<td><%=hotel.getHotelLocation()%></td>
+			<td><%=hotel.getHotelPhoneNumber()%></td>
+			<td><input type="hidden" name="location"
+				value="<%=hotel.getHotelName()%>"> <a
+				href="updateHotel.html?editId=<%=hotel.getHotelPhoneNumber()%>">
 					<button type="button">Update</button>
 			</a></td>
-			 			<td>
+			<td>
 				<form action="AdminHotelDelete" method="post">
 					<input type="hidden" name="action" value="Delete"> <input
 						type="hidden" name="delete" value="<%=hotel.getHotelName()%>">
 					<button type="submit" title="delete">Delete</button>
 				</form>
 			</td>
-			 
+
 			<%
 			}
 			}
 			%>
-		
-</tr>
-		
+
+		</tr>
+
 	</table>
 </body>
 </html>

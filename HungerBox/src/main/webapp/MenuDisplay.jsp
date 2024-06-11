@@ -147,36 +147,66 @@ input {
 }
 </style>
 <script>
-    function incrementQuantity(foodId) {
-    	console.log(foodId);
-        var quantityInput = document.getElementById('quantity_' + foodId);
-        var quantityValue = parseInt(quantityInput.value);
-        quantityInput.value = quantityValue + 1;
-        document.getElementById('quantity_input_' + foodId).value = quantityValue + 1;
-    }
+var value; // Declare quantityInput variable outside any function
 
-    function decrementQuantity(foodId) {
-        var quantityInput = document.getElementById('quantity_' + foodId);
-        var quantityValue = parseInt(quantityInput.value);
-        if (quantityValue > 1) {
-            quantityInput.value = quantityValue - 1;
-            document.getElementById('quantity_input_' + foodId).value = quantityValue - 1;
-        }
+function checkAvailability(searchValue, hour) {
+    if (searchValue.toLowerCase() === 'breakfast' && hour >= 12) {
+        alert('Breakfast is not available after 12 PM.');
+        return false;
+    } else if (searchValue.toLowerCase() === 'lunch' && (hour < 12 || hour >= 17)) {
+        alert('Lunch foods are not available before 12 PM and after 5 PM.');
+        return false;
+    } else if (searchValue.toLowerCase() === 'dinner' && (hour < 12 || hour >= 17)) {
+        alert('Dinner foods are not available after 5 PM.');
+        return false;
+    } else if (searchValue.toLowerCase() === 'breakfast' && (hour < 6 || hour >= 12)) {
+        alert('Breakfast foods are not available before 6 AM and after 12 PM.');
+        return false;
     }
+    return true;
+}
+
+function updateQuantityInput(foodId, quantityValue) {
+	
+    // Update the hidden input field with the new quantity value
+    quantityInput = document.getElementById('quantity_input_' + foodId);
+    value = quantityValue;
+    console.log("from qUANITITY"+value );
+    if (quantityInput) {
+        quantityInput.value = quantityValue;
+    }
+}
+
+function incrementQuantity(foodId) {
+    console.log(foodId);
+    quantityInput = document.getElementById('quantity_' + foodId);
+    var quantityValue = parseInt(quantityInput.value);
+    quantityInput.value = quantityValue + 1;
+    updateQuantityInput(foodId, quantityValue + 1);
+}
+
+function decrementQuantity(foodId) {
+    quantityInput = document.getElementById('quantity_' + foodId);
+    var quantityValue = parseInt(quantityInput.value);
+    if (quantityValue > 1) {
+        quantityInput.value = quantityValue - 1;
+        updateQuantityInput(foodId, quantityValue - 1);
+    }
+}
+
+function addToCart(foodId) {
+	
+	 var hiddenInput = document.getElementById('quantity_' + foodId);
+	    
+	    hiddenInput.value = value;
+    quantityInput = document.getElementById('quantity_' + foodId);
+    var quantityValue = value;
+    console.log("added value"+value);    
+}
+
 </script>
 
 </head>
-
-
-
-
-
-
-
-
-
-
-
 <body>
 	<div class="nav">
 		<div class="logo">
@@ -185,28 +215,33 @@ input {
 				Hunger<b>Box</b>
 			</h1>
 		</div>
+
 		<ul>
 			<li><a class="active" href="#">Home</a></li>
 			<li><a href="#">AboutUs</a></li>
 			<li><a href="#">Contact</a></li>
 			<li><a href="#">Cart</a></li>
 		</ul>
-		<div>
-			<a class="signin" href="LoginPage.html">Sign In</a> <input
-				class="signup" type="submit" value="Sign Up" name="signup">
-		</div>
+		<form action="" method="post"
+			onsubmit="return checkAvailability(this.querySelector('input[type=text]').value, <%=java.time.LocalTime.now().getHour()%>)">
+			<input type="text" placeholder="Search..."
+				style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+			<input type="submit" value="Search">
+		</form>
+
 	</div>
 
 
 
 	<h1>Hotel Details</h1>
+	
 	<%
 	try {
 		List<Food> foodlist = HungerImplements.read2();
 		for (Food food : foodlist) {
 			byte[] imageBytes = food.getFoodImage();
 			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-			System.out.println("food_id = "+food.getFoodId());
+			System.out.println("food_id = " + food.getFoodId());
 	%>
 	<div class="card">
 		<img src="data:image/jpeg;base64,<%=base64Image%>" alt="Book Cover"
@@ -215,23 +250,32 @@ input {
 			<h1><%=food.getHotelName()%></h1>
 			<h2><%=food.getFoodCategories()%></h2>
 			<h3><%=food.getFoodName()%></h3>
-			<p>	Price:
+			<p>
+				Price:
 				<%=food.getFoodPrice()%></p>
-			<!-- You can add more details here -->
-			<div class="quantity-selector">
-				<input type="button" value="-"
-					onclick="decrementQuantity(<%=food.getFoodId()%>)"> <input
-					type="text" id="quantity_<%=food.getFoodId()%>"
-					name="quantity_<%=food.getFoodId()%>" value="0"> <input
-					type="button" value="+"
-					onclick="incrementQuantity(<%=food.getFoodId()%>)">
-			</div>
-			<form action="" method="post">
+			<p
+				class="<%=food.getAvailability().equalsIgnoreCase("Available") ? "available" : "unavailable"%>">
+				<%=food.getAvailability()%>
+			</p>
+<div class="quantity-selector">
+    <input type="number" id="quantity_<%=food.getFoodId()%>" name="quantity_<%=food.getFoodId()%>" min="1" value="1">
+    <button onclick="buyNow('<%=food.getFoodId()%>')">Buy Now</button>
+</div>
+		<%-- 			<form action="" method="post">
 				<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
 				<input type="hidden" id="quantity_input_<%=food.getFoodId()%>"
 					name="quantity_" value="0"> <input type="submit"
 					value="Add to Cart">
 			</form>
+ --%>
+
+
+			<form action="" method="post">
+				<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
+				<input type="hidden" name="base64Image" value="<%=base64Image%>">
+				<input type="hidden" name="price" value="<%=food.getFoodPrice()%>">
+				<input type="hidden" id="quantity_<%=food.getFoodId()%>"
+					name="quantity_<%=food.getFoodId()%>" value=""></form>
 
 		</div>
 	</div>
