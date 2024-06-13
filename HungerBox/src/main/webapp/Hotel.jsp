@@ -30,7 +30,14 @@ table {
 }
 
 th {
-	background-color: blue; /* Changed to blue */
+	background-color: blue; 
+	
+	
+	
+	
+	
+	
+	
 	color: white;
 }
 
@@ -94,6 +101,15 @@ td {
 					<button type="submit" title="delete">Delete</button>
 				</form>
 			</td>
+
+
+
+
+
+
+
+
+
 
 			<%
 			}

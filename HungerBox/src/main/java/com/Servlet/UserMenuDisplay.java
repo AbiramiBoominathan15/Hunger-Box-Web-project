@@ -59,19 +59,6 @@ public class UserMenuDisplay extends HttpServlet {
 			@SuppressWarnings("unused")
 			UserDetails user = (UserDetails) session.getAttribute("userId");
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			@SuppressWarnings("static-access")
 			List<Food> foodlist = implement.read2();
 

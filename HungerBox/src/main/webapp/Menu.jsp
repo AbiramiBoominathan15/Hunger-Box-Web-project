@@ -58,6 +58,23 @@ td {
 	border-radius: 5px;
 	border: 1px solid #ccc;
 }
+
+.pay-now-button {
+	display: block;
+	margin: 20px auto;
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.pay-now-button:hover {
+	background-color: #45a049;
+}
 </style>
 </head>
 <body>
@@ -73,8 +90,10 @@ td {
 		</tr>
 		<%
 		List<CartItem> list1 = (ArrayList<CartItem>) request.getAttribute("list");
+		double overallTotalPrice = 0;
 		if (list1 != null) {
 			for (CartItem cartItem : list1) {
+				overallTotalPrice += cartItem.getTotalPrice();
 		%>
 		<tr>
 			<td><%=cartItem.getUserId()%></td>
@@ -94,7 +113,25 @@ td {
 		}
 		}
 		%>
-
+		<tr>
+		
+		
+		
+		
+		
+		
+		
+		
+			<td colspan="3"></td>
+			<td colspan="2"><strong>Overall Total Price:</strong></td>
+			<td><%=overallTotalPrice%></td>
+		</tr>
 	</table>
+	<form action="StockUpdated" method="post">
+		<input type="hidden" name="overallTotalPrice"
+			value="<%=overallTotalPrice%>">
+		<button class="pay-now-button" type="submit">Pay Now</button>
+	</form>
+
 </body>
 </html>

@@ -25,39 +25,30 @@ public class AdminUpdateServlet extends HttpServlet {
 	Hotel hotel = new Hotel();
 	HungerImplements implement = new HungerImplements();
 
-       
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminUpdateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdminUpdateServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String name = request.getParameter("name");
 		System.out.println(name);
@@ -69,36 +60,23 @@ public class AdminUpdateServlet extends HttpServlet {
 		String phonenumber = request.getParameter("phonenumber");
 		System.out.println(phonenumber);
 		hotel.setHotelPhoneNumber(phonenumber);
-        
-        try {
-        	implement.updateAdmin(hotel);
-            
-        }
-        catch(ClassNotFoundException | SQLException e){
-            e.printStackTrace();
-        }
-        try {
-            list=implement.read1();    
-            
-            
-            
-            
-       
-            
-            
-            
-             
-        }
-        catch (ClassNotFoundException | SQLException e) {
-              
-               e.printStackTrace();
-           }
-        request.setAttribute("list", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel.jsp");
-        dispatcher.forward(request, response);
-    }
 
+		try {
+			implement.updateAdmin(hotel);
 
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			list = implement.read1();
+
+		} catch (ClassNotFoundException | SQLException e) {
+
+			e.printStackTrace();
+		}
+		request.setAttribute("list", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel.jsp");
+		dispatcher.forward(request, response);
 	}
 
-
+}

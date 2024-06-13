@@ -19,7 +19,6 @@ import javax.servlet.http.Part;
 import com.DAO.HungerImplements;
 import com.model.Food;
 import com.model.Hotel;
-import com.model.UserDetails;
 
 /**
  * Servlet implementation class FoodDetails
@@ -30,7 +29,7 @@ public class FoodDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<Hotel> list = new ArrayList<Hotel>();
 	Food food = new Food();
-	Hotel hotel= new Hotel();
+	Hotel hotel = new Hotel();
 
 	HungerImplements implement = new HungerImplements();
 
@@ -56,6 +55,7 @@ public class FoodDetails extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -72,12 +72,14 @@ public class FoodDetails extends HttpServlet {
 		// }
 
 		int hotelId = Integer.parseInt(request.getParameter("hotelid"));
-		String hotelName=request.getParameter("hotelname");
+		String hotelName = request.getParameter("hotelname");
+		@SuppressWarnings("unused")
 		String foodName = request.getParameter("foodName");
+		@SuppressWarnings("unused")
 		String foodCategories = request.getParameter("foodCategory");
 		int foodQuantity = Integer.parseInt(request.getParameter("foodQuantity"));
 		int foodPrice = Integer.parseInt(request.getParameter("foodPrice"));
-		String foodSession= request.getParameter("foodSession");
+		String foodSession = request.getParameter("foodSession");
 		System.out.println(foodSession);
 		// InputStream foodImage = request.getParameter("mailId");
 		Part filePart = request.getPart("image");
@@ -86,15 +88,7 @@ public class FoodDetails extends HttpServlet {
 		if (fileContent != null) {
 			images = fileContent.readAllBytes();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		food.setHotelId(hotelId);
 		food.setHotelName(hotelName);
 		food.setFoodName(request.getParameter("foodName"));
@@ -103,28 +97,19 @@ public class FoodDetails extends HttpServlet {
 		food.setFoodQuantity(foodQuantity);
 		food.setFoodsession(foodSession);
 		food.setFoodImage(images);
-
+		HungerImplements implement = new HungerImplements();
 		try {
 			implement.foodDetails(food);
-			
-			System.out.println(food.foodId);
+			Food foodId = implement.getFoodId(food);
+
 			HttpSession session = request.getSession();
-			session.setAttribute("foodId", food.foodId);
+			if (foodId != null) {
+				session.setAttribute("foodId", foodId);
+				System.out.println(foodId);
 
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-//			List<UserDetails> list = implement.read();
-//			request.setAttribute("list", list);
+			} else {
+				System.out.println("error");
+			}
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("");
 			dispatcher.forward(request, response);
@@ -133,5 +118,4 @@ public class FoodDetails extends HttpServlet {
 		}
 
 	}
-
 }

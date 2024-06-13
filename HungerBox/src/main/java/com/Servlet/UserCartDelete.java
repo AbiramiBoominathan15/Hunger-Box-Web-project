@@ -32,14 +32,7 @@ public class UserCartDelete extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public UserCartDelete() {
-		
-		
-		
-		
-		
-		
-		
-		
+
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -69,6 +62,7 @@ public class UserCartDelete extends HttpServlet {
 			implement.deleteCart(foodId);
 			HttpSession session = request.getSession();
 			UserDetails userId = (UserDetails) session.getAttribute("userId");
+
 			List<CartItem> cartItemList = implement.readCart(userId);
 
 			request.setAttribute("list", cartItemList);

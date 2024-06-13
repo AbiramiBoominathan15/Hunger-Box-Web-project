@@ -51,9 +51,11 @@ public class UserLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String name = request.getParameter("name");
+		@SuppressWarnings("unused")
 		String phoneNumber = request.getParameter("phonenumber");
 		String password = request.getParameter("password");
 		String mailId = request.getParameter("Mailid");
@@ -62,48 +64,31 @@ public class UserLogin extends HttpServlet {
 		user.setMailId(request.getParameter("Mailid"));
 		user.setPassword(request.getParameter("password"));
 
-		if ( password.equals("abirami1123")&&mailId.equals("abiramiboominathan@gmail.com")) {
+		if (password.equals("abirami1123") && mailId.equals("abiramiboominathan@gmail.com")) {
 			System.out.println(name);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel1.html");
 			dispatcher.forward(request, response);
 
-		} else if (password.equals("hotelsuki12")&&mailId.equals("hotelfood12@gmail.com")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotelmenu.html");
+		} else if (password.equals("hotelsuki12") && mailId.equals("hotelfood12@gmail.com")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotelmenu.jsp");
 			dispatcher.forward(request, response);
 
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		else {
 			try {
-				
-				
-				
-				
-				
-				
-				
-				
 				if (implement.login(user)) {
 					UserDetails userId = implement.getUserId(user);
 
 					HttpSession session = request.getSession();
 					if (userId != null) {
-						 System.out.println(userId);
+						System.out.println(userId);
 
 					}
 
 					session.setAttribute("userId", userId);
-					
+
 					response.sendRedirect("MenuDisplay.jsp");
 				} else {
 					response.sendRedirect("LoginPage.html");

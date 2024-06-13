@@ -48,20 +48,14 @@ public class AdminLogin extends HttpServlet {
 		@SuppressWarnings("unused")
 		String hotelPhoneNumber = request.getParameter("phonenumber");
 
-		
-		
-		
-		
-		
-		
 		hotel.setHotelName(request.getParameter("name"));
 		hotel.setHotelLocation(request.getParameter("location"));
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
 		try {
-			if(HungerImplements.hotelDetails(hotel)) {
-				
+			if (HungerImplements.hotelDetails(hotel)) {
+
 			}
-			
+
 			List<Hotel> list = implement.read1();
 			request.setAttribute("list", list);
 
@@ -71,9 +65,6 @@ public class AdminLogin extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

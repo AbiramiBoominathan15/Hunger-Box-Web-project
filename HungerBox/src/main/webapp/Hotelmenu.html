@@ -16,6 +16,10 @@
 }
 
 .btn-submit:hover {
+
+
+
+
 	background-color: rgb(147, 24, 44);
 }
 
@@ -90,6 +94,10 @@ body {
 </style>
 </head>
 <body>
+				<%
+				Food foodId = (Food) session.getAttribute("foodId");
+				%>
+
 	<div class="form-container">
 		<h2>Food Details</h2>
 		<form action="FoodDetails" method="post" enctype="multipart/form-data">

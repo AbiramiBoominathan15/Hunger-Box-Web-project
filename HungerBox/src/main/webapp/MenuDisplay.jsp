@@ -6,6 +6,8 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.model.*"%>
 <%@ page import="com.model.Hotel"%>
+<%@ page import="com.model.Food"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +35,7 @@ table {
 }
 
 th {
-	background-color: blue; /* Changed to blue */
+	background-color: blue; 
 	color: white;
 }
 
@@ -69,6 +71,7 @@ display:flex;}
 	width: 25%;
 	margin: 10px;
 }
+
 *, ::after, ::before {
 	margin: 0;
 	padding: 0;
@@ -179,18 +182,13 @@ function addToCartClicked(foodId, price) {
 			Hunger<b>Box</b>
 			</h1>
 		</div>
-
-
-
-
-
 		<ul>
 			<li><a class="active" href="#">Home</a></li>
 			<li><a href="#">AboutUs</a></li>
 			<li><a href="#">Contact</a></li>
-<!-- 			<li><a href="#">Cart</a></li>
- -->		
- </ul>
+			<!-- 			<li><a href="#">Cart</a></li>
+ -->
+		</ul>
 		<div>
 			<a class="signin" href="LoginPage.html">Sign In</a> <input
 				class="signup" type="submit" value="Sign Up" name="signup">
@@ -206,10 +204,12 @@ function addToCartClicked(foodId, price) {
 		</form>
 	</div>
 	<h1>Hotel Details</h1>
+	
 
 	<%
 	try {
-
+		
+		
 		List<Food> foodlist = HungerImplements.read2();
 		for (Food food : foodlist) {
 			byte[] imageBytes = food.getFoodImage();
@@ -239,7 +239,8 @@ function addToCartClicked(foodId, price) {
 					<%=food.getAvailability()%>
 				</p>
 				<%=food.getFoodsession()%>
-				<input type="hidden" value="<%=food.getFoodsession()%>" name="foodSession">
+				<input type="hidden" value="<%=food.getFoodsession()%>"
+					name="foodSession">
 
 
 				<%
@@ -258,6 +259,15 @@ function addToCartClicked(foodId, price) {
 					<input type="hidden" id="quantity_<%=food.getFoodId()%>"
 						name="quantity_<%=food.getFoodId()%>" value="">
 		</form>
+
+
+
+
+
+
+
+
+
 
 	</div>
 	<%-- 			<form action="" method="post">

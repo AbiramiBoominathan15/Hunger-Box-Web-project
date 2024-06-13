@@ -29,18 +29,6 @@ public class AdminLoginServlet extends HttpServlet {
 	List<Hotel> list1 = new ArrayList<Hotel>();
 	Hotel hotel = new Hotel();
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -75,8 +63,7 @@ public class AdminLoginServlet extends HttpServlet {
 		}
 	}
 
-
-		/**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -103,17 +90,7 @@ public class AdminLoginServlet extends HttpServlet {
 		user.setPassword(request.getParameter("password"));
 		user.setCity(request.getParameter("city"));
 		user.setMailId(request.getParameter("mailId"));
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		try {
 			System.out.println("phonenumber:" + phoneNumber);
 			implement.userlogin(user);
@@ -126,8 +103,6 @@ public class AdminLoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
-		
 //		String name1 = request.getParameter("username");
 //		String password1 = request.getParameter("password");
 //		String phonenumber= request.getParameter("phonenumber");
@@ -143,14 +118,9 @@ public class AdminLoginServlet extends HttpServlet {
 
 	}
 
-
-
-
 //		String action = request.getParameter("action");
 //		System.out.println(action);
 
-		
-		
 //		switch (action) {
 //		case "register":
 //
@@ -202,6 +172,5 @@ public class AdminLoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 	}
-	
 
 }

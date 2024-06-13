@@ -93,6 +93,14 @@ td {
 			</a></td>
 			<td>
 				<form action="UserDeleteServlet" method="post">
+		
+		
+		
+		
+		
+		
+		
+		
 					<input type="hidden" name="action" value="Delete"> <input
 						type="hidden" name="delete" value="<%=user.getName()%>">
 					<button type="submit" title="delete">Delete</button>

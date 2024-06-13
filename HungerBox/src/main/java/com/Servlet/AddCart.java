@@ -32,7 +32,6 @@ public class AddCart extends HttpServlet {
 	 */
 	public AddCart() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -91,7 +90,7 @@ public class AddCart extends HttpServlet {
 		int foodId = Integer.parseInt(request.getParameter("foodId"));
 		System.out.println(foodId);
 		int price = Integer.parseInt(request.getParameter("price"));
-	
+
 		System.out.println(price);
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		System.out.println(quantity);

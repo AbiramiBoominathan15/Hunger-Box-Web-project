@@ -54,18 +54,6 @@ public class AdminHotelDelete extends HttpServlet {
 		String name = request.getParameter("delete");
 		hotel.setHotelName(name);
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		try {
 			implement.deleteHotel(name);
 			PrintWriter writer = response.getWriter();

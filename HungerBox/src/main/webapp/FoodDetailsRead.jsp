@@ -87,6 +87,8 @@ td {
 			<th>Image</th>
 			<th>Name</th>
 			<th>Price</th>
+	
+	
 			<th>Catagories</th>
 			<th colspan="2">Actions</th>
 		</tr>
