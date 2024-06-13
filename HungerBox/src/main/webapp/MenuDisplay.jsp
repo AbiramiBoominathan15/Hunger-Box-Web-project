@@ -69,8 +69,6 @@ display:flex;}
 	width: 25%;
 	margin: 10px;
 }
-
------------------------------
 *, ::after, ::before {
 	margin: 0;
 	padding: 0;
@@ -147,16 +145,6 @@ input {
 }
 </style>
 <script>
-
-
-
-
-
-
-
-
-
-
 function checkAvailability(searchValue, hour) {
     if (searchValue.toLowerCase() === 'breakfast' && hour >= 12) {
         alert('Breakfast is not available after 12 PM.');
@@ -173,6 +161,14 @@ function checkAvailability(searchValue, hour) {
     }
     return true;
 }
+function addToCartClicked(foodId, price) {
+    var quantity = parseInt(document.getElementById("quantity_" + foodId).value);
+    var totalPrice = quantity * price;
+    var currentOverallPrice = parseFloat(document.getElementById("overallPrice").innerText);
+    var newOverallPrice = currentOverallPrice + totalPrice;
+    document.getElementById("overallPrice").innerText = newOverallPrice.toFixed(2);
+}
+
 </script>
 
 </head>
@@ -184,12 +180,17 @@ function checkAvailability(searchValue, hour) {
 			</h1>
 		</div>
 
+
+
+
+
 		<ul>
 			<li><a class="active" href="#">Home</a></li>
 			<li><a href="#">AboutUs</a></li>
 			<li><a href="#">Contact</a></li>
-			<li><a href="#">Cart</a></li>
-		</ul>
+<!-- 			<li><a href="#">Cart</a></li>
+ -->		
+ </ul>
 		<div>
 			<a class="signin" href="LoginPage.html">Sign In</a> <input
 				class="signup" type="submit" value="Sign Up" name="signup">
@@ -200,7 +201,9 @@ function checkAvailability(searchValue, hour) {
 				style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
 			<input type="submit" value="Search">
 		</form>
-
+		<form action="AddCart" method="get">
+			<input type="submit" name="action" value="viewCart">
+		</form>
 	</div>
 	<h1>Hotel Details</h1>
 
@@ -220,17 +223,24 @@ function checkAvailability(searchValue, hour) {
 				style="width: 200px; height: 200px;">
 			<div class="card-details">
 				<h1><%=food.getHotelName()%></h1>
-				<h1><%=food.getHotelId()%></h1>
+				<%-- 				<h1><%=food.getHotelId()%></h1>
+ --%>
+				<h2 style="color: red;">
+					FoodId:
+					<%=food.getFoodId()%></h2>
 				<h2><%=food.getFoodCategories()%></h2>
 				<h3><%=food.getFoodName()%></h3>
 				<p>
 					Price:
 					<%=food.getFoodPrice()%></p>
-				<input type="hidden" value="<%=food.getFoodPrice()%> name="price">
+				<input type="hidden" value="<%=food.getFoodPrice()%>" name="price">
 				<p
 					class="<%=food.getAvailability().equalsIgnoreCase("Available") ? "available" : "unavailable"%>">
 					<%=food.getAvailability()%>
 				</p>
+				<%=food.getFoodsession()%>
+				<input type="hidden" value="<%=food.getFoodsession()%>" name="foodSession">
+
 
 				<%
 				UserDetails userId = (UserDetails) session.getAttribute("userId");
@@ -241,7 +251,7 @@ function checkAvailability(searchValue, hour) {
 					<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
 					<input type="number" id="quantity_<%=food.getFoodId()%>"
 						name="quantity" min="1" value="1">
-					<button type="submit">Buy Now</button>
+					<button type="submit" name="action" value="addToCart">AddtoCart</button>
 					<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
 					<input type="hidden" name="base64Image" value="<%=base64Image%>">
 					<input type="hidden" name="price" value="<%=food.getFoodPrice()%>">
@@ -259,17 +269,16 @@ function checkAvailability(searchValue, hour) {
  --%>
 
 
-	<form action="" method="post">
 
-		</div>
-		>
-		</div>
-		<%
-		}
-		} catch (SQLException | ClassNotFoundException ex) {
-		ex.printStackTrace();
-		}
-		%>
-	
+	</div>
+
+	</div>
+	<%
+	}
+	} catch (SQLException | ClassNotFoundException ex) {
+	ex.printStackTrace();
+	}
+	%>
+
 </body>
 </html>

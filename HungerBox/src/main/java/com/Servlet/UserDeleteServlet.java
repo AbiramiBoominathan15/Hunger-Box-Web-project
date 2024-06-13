@@ -52,6 +52,9 @@ public class UserDeleteServlet extends HttpServlet {
 		user.setName(name);
 
 		try {
+			
+			
+			
 			implement.delete(name);
 			PrintWriter writer = response.getWriter();
 			writer.println(user.getName() + " deleted");

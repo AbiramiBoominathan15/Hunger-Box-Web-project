@@ -63,6 +63,9 @@ public class AdminHotelDelete extends HttpServlet {
 		
 		
 		
+		
+		
+		
 		try {
 			implement.deleteHotel(name);
 			PrintWriter writer = response.getWriter();

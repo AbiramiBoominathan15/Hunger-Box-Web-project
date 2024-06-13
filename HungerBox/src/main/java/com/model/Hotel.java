@@ -59,6 +59,11 @@ public class Hotel {
 	public String getHotelLocation() {
 		return hotelLocation;
 	}
+	
+	
+	
+	
+	
 	public void setHotelLocation(String hotelLocation) {
 		this.hotelLocation = hotelLocation;
 	}

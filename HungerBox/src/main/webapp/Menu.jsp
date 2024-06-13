@@ -30,7 +30,7 @@ table {
 }
 
 th {
-	background-color: blue; /* Changed to blue */
+	background-color: blue;
 	color: white;
 }
 
@@ -61,46 +61,39 @@ td {
 </style>
 </head>
 <body>
-	<h1>Hotel Details</h1>
+	<h1>Cart Details</h1>
 	<table border="1">
 		<tr>
-			<th>HotelName</th>
-			<th>HotelLocation</th>
-			<th>Phonenumber</th>
-			<th colspan="2">Actions</th>
+			<th>UserId</th>
+			<th>FoodId</th>
+			<th>Quantity</th>
+			<th>TotalPrice</th>
+			<th>MealTime</th>
+			<th>Actions</th>
 		</tr>
 		<%
-		List<Hotel> list1 = (ArrayList<Hotel>) request.getAttribute("list");
+		List<CartItem> list1 = (ArrayList<CartItem>) request.getAttribute("list");
 		if (list1 != null) {
-			for (Hotel hotel : list1) {
+			for (CartItem cartItem : list1) {
 		%>
 		<tr>
-		
-		
-		
-		
-			<td><%=hotel.getHotelName()%></td>
-			<td><%=hotel.getHotelLocation()%></td>
-			<td><%=hotel.getHotelPhoneNumber()%></td>
-			<td><input type="hidden" name="location"
-				value="<%=hotel.getHotelName()%>"> <a
-				href="updateHotel.html?editId=<%=hotel.getHotelPhoneNumber()%>">
-					<button type="button">Update</button>
-			</a></td>
+			<td><%=cartItem.getUserId()%></td>
+			<td><%=cartItem.getFoodId()%></td>
+			<td><%=cartItem.getQuantity()%></td>
+			<td><%=cartItem.getTotalPrice()%></td>
+			<td><%=cartItem.getFoodsession()%></td>
 			<td>
-				<form action="AdminHotelDelete" method="post">
+				<form action="UserCartDelete" method="post">
 					<input type="hidden" name="action" value="Delete"> <input
-						type="hidden" name="delete" value="<%=hotel.getHotelName()%>">
-					<button type="submit" title="delete">Delete</button>
+						type="hidden" name="delete" value="<%=cartItem.getFoodId()%>">
+					<button type="submit" title="delete">Remove</button>
 				</form>
 			</td>
-
-			<%
-			}
-			}
-			%>
-
 		</tr>
+		<%
+		}
+		}
+		%>
 
 	</table>
 </body>

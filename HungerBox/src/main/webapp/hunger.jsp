@@ -30,7 +30,7 @@ table {
 }
 
 th {
-	background-color: blue; 
+	background-color: blue;
 	color: white;
 }
 
@@ -70,7 +70,7 @@ td {
 			<th>password</th>
 			<th>city</th>
 			<th>mailId</th>
-		    <th colspan="2">Actions</th>
+			<th colspan="2">Actions</th>
 		</tr>
 		<%
 		List<UserDetails> list = (ArrayList<UserDetails>) request.getAttribute("list");
@@ -78,6 +78,9 @@ td {
 			for (UserDetails user : list) {
 		%>
 		<tr>
+		
+		
+		
 			<td><%=user.getName()%></td>
 			<td><%=user.getPhoneNumber()%></td>
 			<td><%=user.getPassword()%></td>
@@ -95,51 +98,6 @@ td {
 					<button type="submit" title="delete">Delete</button>
 				</form>
 			</td>
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-
-
 			<%
 			}
 			}
