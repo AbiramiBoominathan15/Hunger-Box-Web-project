@@ -1,7 +1,5 @@
 package com.model;
 
-import java.io.InputStream;
-import java.util.Arrays;
 
 public class Food {
 
@@ -21,6 +19,13 @@ public class Food {
 		this.hotelId = hotelId;
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	public String getHotelName() {
 		return hotelName;
 	}

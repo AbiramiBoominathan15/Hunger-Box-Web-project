@@ -19,6 +19,11 @@ public class Hotel {
 		this.hotelId = hotelId;
 	}
 
+	
+	
+	
+	
+	
 	public String getHotelName() {
 		return hotelName;
 	}
@@ -96,7 +101,6 @@ public class Hotel {
 	}
 
 	public Hotel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -23,6 +23,9 @@ h1 {
 	color: blue;
 }
 
+
+
+
 a {
 	text-decoration: none;
 	color: black;
@@ -176,6 +179,7 @@ function addToCartClicked(foodId, price) {
 
 </head>
 <body>
+
 	<div class="nav">
 		<div class="logo">
 
@@ -184,15 +188,11 @@ function addToCartClicked(foodId, price) {
 		</div>
 		<ul>
 			<li><a class="active" href="#">Home</a></li>
-			<li><a href="#">AboutUs</a></li>
-			<li><a href="#">Contact</a></li>
+			<li><a href="Aboutus.html">AboutUs</a></li>
+			<li><a href="Contactpage.html">Contact</a></li>
 			<!-- 			<li><a href="#">Cart</a></li>
  -->
 		</ul>
-		<div>
-			<a class="signin" href="LoginPage.html">Sign In</a> <input
-				class="signup" type="submit" value="Sign Up" name="signup">
-		</div>
 		<form action="" method="post"
 			onsubmit="return checkAvailability(this.querySelector('input[type=text]').value, <%=java.time.LocalTime.now().getHour()%>)">
 			<input type="text" placeholder="Search..."
@@ -203,13 +203,11 @@ function addToCartClicked(foodId, price) {
 			<input type="submit" name="action" value="viewCart">
 		</form>
 	</div>
-	<h1>Hotel Details</h1>
+	<h1>Food Details</h1>
 	
 
 	<%
 	try {
-		
-		
 		List<Food> foodlist = HungerImplements.read2();
 		for (Food food : foodlist) {
 			byte[] imageBytes = food.getFoodImage();
@@ -223,12 +221,15 @@ function addToCartClicked(foodId, price) {
 				style="width: 200px; height: 200px;">
 			<div class="card-details">
 				<h1><%=food.getHotelName()%></h1>
-				<%-- 				<h1><%=food.getHotelId()%></h1>
- --%>
+<%-- 								<h1><%=food.getHotelId()%></h1>
+ --%> 				
+ <input type="hidden" value="<%=food.getHotelId()%>" name="hotelid">
+ 
 				<h2 style="color: red;">
-					FoodId:
+ 					FoodId:
 					<%=food.getFoodId()%></h2>
-				<h2><%=food.getFoodCategories()%></h2>
+ 				
+ <h2><%=food.getFoodCategories()%></h2>
 				<h3><%=food.getFoodName()%></h3>
 				<p>
 					Price:
@@ -238,8 +239,9 @@ function addToCartClicked(foodId, price) {
 					class="<%=food.getAvailability().equalsIgnoreCase("Available") ? "available" : "unavailable"%>">
 					<%=food.getAvailability()%>
 				</p>
-				<%=food.getFoodsession()%>
-				<input type="hidden" value="<%=food.getFoodsession()%>"
+<%-- 				<%=food.getFoodsession()%>
+ --%>				
+ <input type="hidden" value="<%=food.getFoodsession()%>"
 					name="foodSession">
 
 
@@ -259,13 +261,6 @@ function addToCartClicked(foodId, price) {
 					<input type="hidden" id="quantity_<%=food.getFoodId()%>"
 						name="quantity_<%=food.getFoodId()%>" value="">
 		</form>
-
-
-
-
-
-
-
 
 
 

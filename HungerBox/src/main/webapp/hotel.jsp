@@ -12,53 +12,38 @@
 body {
 	background-color: black;
 }
-
 h1 {
 	text-align: center;
 	color: blue;
 }
-
 a {
 	text-decoration: none;
 	color: black;
 }
-
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
 	width: 80%;
 }
-
 th {
-	background-color: blue; 
-	
-	
-	
-	
-	
-	
-	
+	background-color: blue; /* Changed to blue */
+	background-color: blue; 	
 	color: white;
 }
-
 td {
 	background-color: violet;
 	color: white;
 }
-
 .footer {
 	text-align: center;
 }
-
 .footer button {
 	margin: 10px;
 }
-
 .search-bar {
 	text-align: center;
 	margin-bottom: 20px;
 }
-
 .search-bar input[type="text"] {
 	padding: 8px;
 	width: 30%;
@@ -104,20 +89,17 @@ td {
 
 
 
-
-
-
-
-
-
-
 			<%
+			
+			
+			
 			}
 			}
 			%>
-
 		</tr>
-
 	</table>
 </body>
 </html>
+
+
+

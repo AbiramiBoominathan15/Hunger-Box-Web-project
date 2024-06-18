@@ -70,5 +70,10 @@ public class UserCartDelete extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
 	}
 }

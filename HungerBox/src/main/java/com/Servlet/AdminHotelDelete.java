@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.DAO.HungerImplements;
 import com.model.Hotel;
-import com.model.UserDetails;
 
 /**
  * Servlet implementation class AdminHotelDelete
@@ -61,7 +60,7 @@ public class AdminHotelDelete extends HttpServlet {
 			List<Hotel> list = implement.read1();
 			request.setAttribute("list", list);
 
-			request.getRequestDispatcher("Hotel.jsp").forward(request, response);
+			request.getRequestDispatcher("hotel.jsp").forward(request, response);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -69,5 +68,9 @@ public class AdminHotelDelete extends HttpServlet {
 		}
 
 	}
+	
+	
+	
+	
 
 }

@@ -12,7 +12,6 @@ import com.model.CartItem;
 import com.model.Food;
 import com.model.Hotel;
 import com.model.UserDetails;
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import com.util.HungerConnection;
 
 public class HungerImplements implements HungerDAO {
@@ -31,6 +30,8 @@ public class HungerImplements implements HungerDAO {
 		resultSet.close();
 		preparedStatement.close();
 		connection.close();
+	
+		
 		return loginSuccess;
 	}
 
@@ -146,19 +147,15 @@ public class HungerImplements implements HungerDAO {
 		}
 	}
 
-	public boolean delete(String name) throws ClassNotFoundException, SQLException {
-		boolean rowDeleted;
-		String deleteEmployeeData = "delete from User_Details where name=?";
-		try (Connection connection = HungerConnection.getConnection();
-				PreparedStatement ps = connection.prepareStatement(deleteEmployeeData);) {
-			ps.setString(1, name);
-			rowDeleted = ps.executeUpdate() > 0;
-			ps.close();
-			connection.close();
-		}
-		return rowDeleted;
-	}
-
+	/*
+	 * public boolean delete(String name) throws ClassNotFoundException,
+	 * SQLException { boolean rowDeleted; String delete =
+	 * "delete from User_Details where name=?"; try (Connection connection =
+	 * HungerConnection.getConnection(); PreparedStatement ps =
+	 * connection.prepareStatement(delete);) { ps.setString(1, name); rowDeleted =
+	 * ps.executeUpdate() > 0; ps.close(); connection.close(); } return rowDeleted;
+	 * }
+	 */
 	public static boolean authenticate(String name, String password) {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
 
@@ -292,8 +289,6 @@ public class HungerImplements implements HungerDAO {
 				ps = connection.prepareStatement(update);
 				ps.setString(1, mealTime);
 			}
-//        ps = connection.prepareStatement(update);
-//        ps.setString(1, mealTime);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -349,28 +344,6 @@ public class HungerImplements implements HungerDAO {
 		}
 		return null;
 	}
-//	public int HotelId(String name)
-//            throws ClassNotFoundException, SQLException {
-//        Connection connection = HungerConnection.getConnection();
-//        String query = "SELECT hotel_id FROM Hotels_Details WHERE hotel_name=?";
-//        PreparedStatement p = connection.prepareStatement(query);
-//        p.setString(1, name);
-//        ResultSet rows = p.executeQuery();
-//        
-//        java.sql.ResultSetMetaData metaData = rows.getMetaData();
-//        int columnCount = metaData.getColumnCount();
-//        
-//        while(rows.next())
-//        {
-//        	for(int i=1; i<=columnCount; i+=1)
-//        	{
-//        		
-//        			return rows.getInt(i);
-//        		
-//        	}
-//        }
-//        return 0;
-//    }
 
 	public static boolean addCartItem(CartItem cartItem) throws ClassNotFoundException, SQLException {
 		Connection connection = HungerConnection.getConnection();
@@ -397,22 +370,6 @@ public class HungerImplements implements HungerDAO {
 		}
 	}
 
-//public Hotel gethotelId(Hotel hotel)
-//        throws ClassNotFoundException, SQLException {
-//    Connection connection = HungerConnection.getConnection();
-//    String query = "SELECT * FROM Hotels_Details WHERE hotel_name=?";
-//    PreparedStatement p = connection.prepareStatement(query);
-//    p.setString(1, hotel.getHotelName());
-//    ResultSet rows = p.executeQuery();
-//    if (rows.next()) {
-//    	hotel.setHotelId(rows.getInt("hotel_id"));
-//    	hotel.setHotelName(rows.getString("hotel_name"));
-//    	hotel.setHotelLocation(rows.getString("hotel_location"));
-//    	hotel.setHotelPhoneNumber(rows.getNString("hotel_phonenumber"));
-//        return hotel;
-//    }
-//    return null;
-//}
 	public List<CartItem> readCart(UserDetails userId2) throws ClassNotFoundException, SQLException {
 		int hour = java.time.LocalTime.now().getHour();
 
@@ -523,41 +480,41 @@ public class HungerImplements implements HungerDAO {
 		return row;
 	}
 
-	public List<CartItem> getCartItems() throws ClassNotFoundException, SQLException {
-		List<CartItem> cartItems = new ArrayList<>();
+	public void updateFoodQuantities(List<CartItem> cartItems) throws SQLException, ClassNotFoundException {
 		Connection connection = null;
 		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-
 		try {
 			connection = HungerConnection.getConnection();
-			String query = "SELECT food_id, quantity FROM Cart_Items";
-			statement = connection.prepareStatement(query);
-			resultSet = statement.executeQuery();
-			System.out.println(" in getCartItems");
-
-			while (resultSet.next()) {
-				int foodId = resultSet.getInt("food_id");
-				int quantity = resultSet.getInt("quantity");
-				System.out.println("in db -" + foodId + " " + quantity);
-				cartItems.add(new CartItem(foodId, quantity));
+			connection.setAutoCommit(false);
+			for (CartItem cartItem : cartItems) {
+				int foodId = cartItem.getFoodId();
+				int quantity = cartItem.getQuantity();
+				System.out.println("from implements :" + foodId + " " + quantity);
+				String query = "UPDATE Food_Details SET food_quantity = food_quantity - ? WHERE food_id = ?";
+				statement = connection.prepareStatement(query);
+				statement.setInt(1, quantity);
+				statement.setInt(2, foodId);
+				statement.executeUpdate();
 			}
+			connection.commit();
+		} catch (SQLException e) {
+			if (connection != null) {
+				connection.rollback();
+			}
+			throw e;
 		} finally {
-			if (resultSet != null) {
-				resultSet.close();
-			}
 			if (statement != null) {
 				statement.close();
 			}
 			if (connection != null) {
+				connection.setAutoCommit(true);
 				connection.close();
 			}
 		}
 
-		return cartItems;
 	}
 
-	public int getRemainingFoodQuantity(int foodId) throws ClassNotFoundException, SQLException {
+	public int getRemainingFoodQuantity(int foodId) throws SQLException, ClassNotFoundException {
 		int remainingQuantity = 0;
 		try (Connection connection = HungerConnection.getConnection()) {
 			String query = "SELECT food_quantity FROM Food_Details WHERE food_id = ?";
@@ -566,11 +523,68 @@ public class HungerImplements implements HungerDAO {
 				try (ResultSet resultSet = statement.executeQuery()) {
 					if (resultSet.next()) {
 						remainingQuantity = resultSet.getInt("food_quantity");
+						System.out.println(
+								"Retrieved remaining quantity for food ID " + foodId + ": " + remainingQuantity);
 					}
 				}
 			}
+		} catch (SQLException e) {
+			System.err.println("Error while fetching remaining food quantity: " + e.getMessage());
+			throw e;
 		}
 		return remainingQuantity;
 	}
 
+	public void updateCartItemQuantity(CartItem cartitem, int foodId, int quantity,double total)
+			throws ClassNotFoundException, SQLException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = HungerConnection.getConnection();
+			String updateQuery = "UPDATE Cart_Items SET quantity = ?,totalprice=? WHERE user_id = ? AND food_id = ?";
+			ps = connection.prepareStatement(updateQuery);
+			ps.setInt(1, quantity);
+			ps.setDouble(2, total);
+			ps.setInt(3, cartitem.getUserId());
+			ps.setInt(4, foodId);
+
+			int rowsAffected = ps.executeUpdate();
+			if (rowsAffected > 0) {
+				System.out.println("Quantity updated successfully.");
+			} else {
+				System.out.println("No rows updated. Please check user or food ID.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+		}
+	}
+
+	public double getFoodPrice(int foodId) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        double foodPrice=0;
+try {
+        connection = HungerConnection.getConnection();
+        String updateQuery = "select food_price from Food_Details where food_id=?";
+       
+        ps = connection.prepareStatement(updateQuery);
+ ps.setInt(1, foodId);
+                    ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+             foodPrice = resultSet.getDouble("food_price");
+            System.out.println("Retrieved remaining quantity for food ID " + foodId + ": " + foodPrice);
+        }
+    }catch (Exception e) {
+    	e.printStackTrace();
+    }
+return foodPrice;
+	}
 }

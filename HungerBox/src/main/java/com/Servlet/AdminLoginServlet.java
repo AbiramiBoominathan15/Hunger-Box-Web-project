@@ -56,11 +56,18 @@ public class AdminLoginServlet extends HttpServlet {
 			List<Hotel> list1 = implement.read1();
 			request.setAttribute("list", list1);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("hotel.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

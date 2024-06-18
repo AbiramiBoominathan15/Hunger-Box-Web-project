@@ -78,9 +78,12 @@ td {
 			for (UserDetails user : list) {
 		%>
 		<tr>
-		
-		
-		
+
+
+
+
+
+
 			<td><%=user.getName()%></td>
 			<td><%=user.getPhoneNumber()%></td>
 			<td><%=user.getPassword()%></td>
@@ -91,22 +94,14 @@ td {
 				href="update.html?editId=<%=user.getPhoneNumber()%>">
 					<button type="button">Update</button>
 			</a></td>
-			<td>
+<%-- 			<td>
 				<form action="UserDeleteServlet" method="post">
-		
-		
-		
-		
-		
-		
-		
-		
-					<input type="hidden" name="action" value="Delete"> <input
+			<input type="hidden" name="action" value="Delete"> <input
 						type="hidden" name="delete" value="<%=user.getName()%>">
 					<button type="submit" title="delete">Delete</button>
 				</form>
 			</td>
-			<%
+ --%>			<%
 			}
 			}
 			%>

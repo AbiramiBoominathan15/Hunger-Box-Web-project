@@ -15,6 +15,14 @@ public class CartItem {
 	public int foodId;
 	public int quantity;
 
+	
+	
+	
+	
+	
+	
+	
+	
 	public double totalPrice;
 	public String foodsession;
 	public double overAllPrice;
@@ -119,6 +127,11 @@ public class CartItem {
 	}
 
 	public CartItem(int foodId2, int quantity2) {
+	}
+
+	public int getPrice() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

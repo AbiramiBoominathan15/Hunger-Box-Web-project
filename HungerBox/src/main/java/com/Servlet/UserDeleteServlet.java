@@ -53,21 +53,22 @@ public class UserDeleteServlet extends HttpServlet {
 		String name = request.getParameter("delete");
 		user.setName(name);
 
-		try {
-
-			implement.delete(name);
-			PrintWriter writer = response.getWriter();
-			writer.println(user.getName() + " deleted");
-			List<UserDetails> list = implement.read();
-			request.setAttribute("list", list);
-
-			request.getRequestDispatcher("hunger.jsp").forward(request, response);
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-
-		}
-
+		/*
+		 * try {
+		 * 
+		 * implement.delete(name); PrintWriter writer = response.getWriter();
+		 * writer.println(user.getName() + " deleted"); List<UserDetails> list =
+		 * implement.read(); request.setAttribute("list", list);
+		 * 
+		 * request.getRequestDispatcher("hunger.jsp").forward(request, response);
+		 * 
+		 * } catch (ClassNotFoundException | SQLException e) { e.printStackTrace();
+		 * 
+		 * }
+		 */
 	}
+	
+	
+	
 
 }

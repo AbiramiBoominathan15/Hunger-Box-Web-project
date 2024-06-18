@@ -57,14 +57,13 @@ public class AddCart extends HttpServlet {
 		 * dispatcher.forward(request, response); }
 		 */
 
-		System.out.println("Abiiii");
 		HttpSession session = request.getSession();
 
 		UserDetails userId = (UserDetails) session.getAttribute("userId");
-
+		System.out.println("====" +userId);
 		List<CartItem> list = null;
 		try {
-			list = implement.readCart(userId);
+			list = implement.readCart( userId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,24 +81,16 @@ public class AddCart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("hi");
 		HttpSession session = request.getSession();
 
 		UserDetails userId = (UserDetails) session.getAttribute("userId");
-		System.out.println("user  :" + userId.getUserId());
 		int foodId = Integer.parseInt(request.getParameter("foodId"));
-		System.out.println(foodId);
 		int price = Integer.parseInt(request.getParameter("price"));
 
-		System.out.println(price);
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		System.out.println(quantity);
+	int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String foodsession = request.getParameter("foodSession");
-		System.out.println(foodsession);
 		double totalPrice = price * quantity;
-		System.out.println(totalPrice);
 
-		// CartItem cartItem = new CartItem();
 		cartItem.setUserId(userId.getUserId());
 		cartItem.setFoodId(foodId);
 		cartItem.setQuantity(quantity);
@@ -109,26 +100,43 @@ public class AddCart extends HttpServlet {
 		// CartItem cartItem = new CartItem(userId, foodId, quantity, totalPrice);
 
 		// cartItem.setFoodId(request.getParameter("foodId"));
-		try {
-			String choice = request.getParameter("action");
-			System.out.println("Choice : " + choice);
-			if (choice.equals("addToCart")) {
-				HungerImplements.addCartItem(cartItem);
-				System.out.println("hello in");
-				response.sendRedirect("MenuDisplay.jsp");
-
-			} else if (choice.equals("viewCart")) {
-				List<CartItem> list = implement.readCart(userId);
-				response.sendRedirect("Menu.jsp");
-				request.setAttribute("list", list);
-
-				// RequestDispatcher dispatcher = request.getRequestDispatcher("Menu.jsp");
-				// dispatcher.forward(request, response);
-			}
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			response.sendRedirect("error.jsp");
-		}
+	    try {
+	        String action = request.getParameter("action");
+	        if (action.equals("addToCart")) {
+	            HungerImplements.addCartItem(cartItem);
+	            response.sendRedirect("menuDisplay.jsp");
+	        } else {
+	            
+	        }
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
+	        response.sendRedirect("error.jsp"); 
+	    }
 	}
 }
+
+
+
+
+
+
+	/*
+	 * * else if (choice.equals("update")) { int newQuantity =
+	 * Integer.parseInt(request.getParameter("quantity")); int foodId1 =
+	 * Integer.parseInt(request.getParameter("foodId"));
+	 * 
+	 * UserDetails userId1 = (UserDetails)
+	 * request.getSession().getAttribute("userId"); CartItem cartItem = new
+	 * CartItem(); cartItem.setUserId(userId.getUserId());
+	 * cartItem.setFoodId(foodId);
+	 * 
+	 * // Call the method to update the quantity HungerImplements hungerImplements =
+	 * new HungerImplements(); hungerImplements.updateCartItemQuantity(cartItem,
+	 * foodId, newQuantity);
+	 * 
+	 * // Redirect or forward as needed response.sendRedirect("MenuDisplay.jsp");
+	 * 
+	 * } }catch(ClassNotFoundException|
+	 * 
+	 * SQLException e) { e.printStackTrace(); response.sendRedirect("error.jsp"); }
+	 */

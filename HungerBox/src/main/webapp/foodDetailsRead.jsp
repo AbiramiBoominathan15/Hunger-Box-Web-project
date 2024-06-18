@@ -105,6 +105,9 @@ td {
 			<td><%=food.getFoodCategories()%></td>
 			<%
 			}
+			
+			
+			
 			}
 			%>
 		

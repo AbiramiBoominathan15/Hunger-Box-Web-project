@@ -23,6 +23,10 @@ public class Order {
 		this.orderDelivery = orderDelivery;
 	}
 
+	
+	
+	
+	
 	public int getOrderId() {
 		return orderId;
 	}

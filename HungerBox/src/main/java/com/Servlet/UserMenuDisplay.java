@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import com.DAO.HungerImplements;
 import com.model.Food;
-import com.model.Hotel;
 import com.model.UserDetails;
 
 /**
@@ -69,6 +68,9 @@ public class UserMenuDisplay extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 
+			
+			
+			
 		}
 	}
 }

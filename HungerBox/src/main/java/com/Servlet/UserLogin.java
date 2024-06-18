@@ -34,7 +34,6 @@ public class UserLogin extends HttpServlet {
 	 */
 	public UserLogin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -67,15 +66,18 @@ public class UserLogin extends HttpServlet {
 		if (password.equals("abirami1123") && mailId.equals("abiramiboominathan@gmail.com")) {
 			System.out.println(name);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel1.html");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("hotel1.html");
 			dispatcher.forward(request, response);
 
-		} else if (password.equals("hotelsuki12") && mailId.equals("hotelfood12@gmail.com")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotelmenu.jsp");
+		} else if (password.equals("hotelsuki12") && mailId.equals("hotel12@gmail.com")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("hotelmenu.jsp");
 			dispatcher.forward(request, response);
 
 		}
 
+		
+		
+		
 		else {
 			try {
 				if (implement.login(user)) {
@@ -89,9 +91,9 @@ public class UserLogin extends HttpServlet {
 
 					session.setAttribute("userId", userId);
 
-					response.sendRedirect("MenuDisplay.jsp");
+					response.sendRedirect("menuDisplay.jsp");
 				} else {
-					response.sendRedirect("LoginPage.html");
+					response.sendRedirect("loginPage.html");
 				}
 			} catch (ClassNotFoundException | SQLException | IOException e) {
 

@@ -34,6 +34,13 @@ public class AdminUpdateServlet extends HttpServlet {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -75,7 +82,7 @@ public class AdminUpdateServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("hotel.jsp");
 		dispatcher.forward(request, response);
 	}
 
