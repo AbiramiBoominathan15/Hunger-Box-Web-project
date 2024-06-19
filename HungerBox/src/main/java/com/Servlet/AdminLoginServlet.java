@@ -43,32 +43,49 @@ public class AdminLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String hotelName = request.getParameter("name");
-		String hotelLocation = request.getParameter("location");
-		String hotelPhoneNumber = request.getParameter("phonenumber");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+//		System.out.println("getttttttt");
+//		String hotelName = request.getParameter("name");
+//		String hotelLocation = request.getParameter("location");
+//		String hotelPhoneNumber = request.getParameter("phonenumber");
+//		String hotelemail= request.getParameter("email");
+//		String hotelPassword=request.getParameter("password");
 
 		hotel.setHotelName(request.getParameter("name"));
 		hotel.setHotelLocation(request.getParameter("location"));
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
+		hotel.setHotelEmail(request.getParameter("email"));
+		hotel.setHotelPassword(request.getParameter("password"));
+
 		try {
 			HungerImplements.hotelDetails(hotel);
 			List<Hotel> list1 = implement.read1();
 			request.setAttribute("list", list1);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("hotel.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("HomePage.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
+	
+	
+	
+	/*
+	 * * try { HungerImplements.hotelDetails(hotel); Hotel hotel =
+	 * implement.hotelLogin(email, password); if (hotel != null &&
+	 * hotel.getHotelStatus().equalsIgnoreCase("yes")) { HttpSession session =
+	 * request.getSession(); session.setAttribute("hotel", hotel);
+	 * 
+	 * response.sendRedirect("hotelmenu.jsp"); } else {
+	 * request.setAttribute("message", "Hotel login failed or not approved.");
+	 * RequestDispatcher dispatcher =
+	 * request.getRequestDispatcher("loginPage.html"); dispatcher.forward(request,
+	 * response); } } catch (ClassNotFoundException | SQLException e) {
+	 * e.printStackTrace(); response.sendRedirect("AdminLogin.html"); }
+	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

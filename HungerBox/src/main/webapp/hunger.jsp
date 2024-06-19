@@ -78,12 +78,6 @@ td {
 			for (UserDetails user : list) {
 		%>
 		<tr>
-
-
-
-
-
-
 			<td><%=user.getName()%></td>
 			<td><%=user.getPhoneNumber()%></td>
 			<td><%=user.getPassword()%></td>

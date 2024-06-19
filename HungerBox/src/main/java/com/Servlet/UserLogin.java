@@ -66,40 +66,65 @@ public class UserLogin extends HttpServlet {
 		if (password.equals("abirami1123") && mailId.equals("abiramiboominathan@gmail.com")) {
 			System.out.println(name);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("hotel1.html");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("adminDashboard.jsp");
 			dispatcher.forward(request, response);
 
-		} else if (password.equals("hotelsuki12") && mailId.equals("hotel12@gmail.com")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("hotelmenu.jsp");
-			dispatcher.forward(request, response);
-
-		}
-
-		
-		
-		
-		else {
+		} else {
 			try {
-				if (implement.login(user)) {
-					UserDetails userId = implement.getUserId(user);
+				if (implement.businesslogin(mailId, password)) {
+					try {
 
-					HttpSession session = request.getSession();
-					if (userId != null) {
-						System.out.println(userId);
-
+						Hotel hotel = implement.hotelLogin(mailId, password);
+						if (hotel != null && hotel.getHotelStatus().equalsIgnoreCase("yes")) {
+							HttpSession session = request.getSession();
+							session.setAttribute("hotel", hotel);
+							response.sendRedirect("hotelmenu.jsp");
+						} else {
+							request.setAttribute("message", "Hotel login failed or not approved.");
+							RequestDispatcher dispatcher = request.getRequestDispatcher("loginPage.jsp");
+							dispatcher.forward(request, response);
+						}
+					} catch (ClassNotFoundException | SQLException e) {
+						e.printStackTrace();
+						response.sendRedirect("loginPage.jsp");
 					}
 
-					session.setAttribute("userId", userId);
-
-					response.sendRedirect("menuDisplay.jsp");
 				} else {
-					response.sendRedirect("loginPage.html");
-				}
-			} catch (ClassNotFoundException | SQLException | IOException e) {
+					try {
+						if (implement.login(user)) {
+							UserDetails userId = implement.getUserId(user);
 
+							HttpSession session = request.getSession();
+							if (userId != null) {
+								System.out.println(userId);
+
+							}
+
+							session.setAttribute("userId", userId);
+
+							response.sendRedirect("menuDisplay.jsp");
+						} else {
+							response.sendRedirect("loginPage.jsp");
+						}
+					} catch (ClassNotFoundException | SQLException | IOException e) {
+
+						e.printStackTrace();
+					}
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
 
 	}
+}
 }

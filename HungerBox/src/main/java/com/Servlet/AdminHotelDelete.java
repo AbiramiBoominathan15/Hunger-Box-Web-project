@@ -49,7 +49,7 @@ public class AdminHotelDelete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println();
 		String name = request.getParameter("delete");
 		hotel.setHotelName(name);
 
@@ -68,6 +68,8 @@ public class AdminHotelDelete extends HttpServlet {
 		}
 
 	}
+	
+	
 	
 	
 	

@@ -66,6 +66,8 @@ public class UserCartDelete extends HttpServlet {
 			List<CartItem> cartItemList = implement.readCart(userId);
 
 			request.setAttribute("list", cartItemList);
+		
+			
 			request.getRequestDispatcher("Menu.jsp").forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

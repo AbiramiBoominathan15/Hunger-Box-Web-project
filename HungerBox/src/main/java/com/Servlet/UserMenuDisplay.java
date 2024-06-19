@@ -65,6 +65,8 @@ public class UserMenuDisplay extends HttpServlet {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("MenuDisplay.jsp");
 			dispatcher.forward(request, response);
+		
+		
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 

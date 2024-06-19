@@ -23,6 +23,8 @@ public class CartItem {
 	
 	
 	
+	
+	
 	public double totalPrice;
 	public String foodsession;
 	public double overAllPrice;

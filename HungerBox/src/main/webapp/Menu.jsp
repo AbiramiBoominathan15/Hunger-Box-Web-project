@@ -63,7 +63,7 @@ td {
 
 .pay-now-button {
     display: block;
-    margin: 20px auto;
+    margin: 110px 545px;
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -88,7 +88,7 @@ td {
             <th>Quantity</th>
             <th>TotalPrice</th>
             <th>MealTime</th>
-            <th>Actions</th>
+            <th colspan="2">Actions</th>
         </tr>
         <%
         List<CartItem> list1 = (ArrayList<CartItem>) request.getAttribute("list");
@@ -126,7 +126,7 @@ td {
         }
         %>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td colspan="2"><strong>Overall Total Price:</strong></td>
             <td><%=overallTotalPrice%></td>
         </tr>

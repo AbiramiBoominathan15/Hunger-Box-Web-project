@@ -112,6 +112,8 @@ public class AddCart extends HttpServlet {
 	        e.printStackTrace();
 	        response.sendRedirect("error.jsp"); 
 	    }
+	    
+	    
 	}
 }
 

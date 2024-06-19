@@ -26,6 +26,8 @@ public class Food {
 	
 	
 	
+	
+	
 	public String getHotelName() {
 		return hotelName;
 	}

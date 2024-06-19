@@ -133,11 +133,15 @@ body {
 
 input {
 	padding: 10px 20px;
-	cursor: ponter;
+	cursor: pointer;
 	font-weight: 600;
 }
-
-.signin {
+.view {
+    padding: 10px 10px;
+    cursor: ponter;
+    width: 24%;
+    font-weight: 600;
+}.signin {
 	background: transparent;
 	border: none;
 }
@@ -183,7 +187,7 @@ function addToCartClicked(foodId, price) {
 	<div class="nav">
 		<div class="logo">
 
-			Hunger<b>Box</b>
+			Much<b>Mate</b>
 			</h1>
 		</div>
 		<ul>
@@ -193,14 +197,15 @@ function addToCartClicked(foodId, price) {
 			<!-- 			<li><a href="#">Cart</a></li>
  -->
 		</ul>
-		<form action="" method="post"
+<%-- 		<form action="" method="post"
 			onsubmit="return checkAvailability(this.querySelector('input[type=text]').value, <%=java.time.LocalTime.now().getHour()%>)">
 			<input type="text" placeholder="Search..."
 				style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
 			<input type="submit" value="Search">
 		</form>
-		<form action="AddCart" method="get">
-			<input type="submit" name="action" value="viewCart">
+ --%>		
+ <form action="AddCart" method="get">
+			<input type="submit"  name="action" value="viewCart">
 		</form>
 	</div>
 	<h1>Food Details</h1>
@@ -220,15 +225,16 @@ function addToCartClicked(foodId, price) {
 			<img src="data:image/jpeg;base64,<%=base64Image%>" alt="Book Cover"
 				style="width: 200px; height: 200px;">
 			<div class="card-details">
-				<h1><%=food.getHotelName()%></h1>
+<%-- 				<h1><%=food.getHotelName()%></h1>
+ --%>				
 <%-- 								<h1><%=food.getHotelId()%></h1>
  --%> 				
  <input type="hidden" value="<%=food.getHotelId()%>" name="hotelid">
  
-				<h2 style="color: red;">
+<%-- 				<h2 style="color: red;">
  					FoodId:
 					<%=food.getFoodId()%></h2>
- 				
+ --%> 				
  <h2><%=food.getFoodCategories()%></h2>
 				<h3><%=food.getFoodName()%></h3>
 				<p>
@@ -252,7 +258,7 @@ function addToCartClicked(foodId, price) {
 					<input type="hidden" name="userId" value="<%=userId.getUserId()%>">
 
 					<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">
-					<input type="number" id="quantity_<%=food.getFoodId()%>"
+					<input type="number"  class="view"id="quantity_<%=food.getFoodId()%>"
 						name="quantity" min="1" value="1">
 					<button type="submit" name="action" value="addToCart">AddtoCart</button>
 					<input type="hidden" name="foodId" value="<%=food.getFoodId()%>">

@@ -39,6 +39,9 @@ public class FoodDetails extends HttpServlet {
 	public FoodDetails() {
 		super();
 		// TODO Auto-generated constructor stub
+	
+	
+	
 	}
 
 	

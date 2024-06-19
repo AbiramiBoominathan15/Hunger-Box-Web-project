@@ -30,8 +30,7 @@ public class HungerImplements implements HungerDAO {
 		resultSet.close();
 		preparedStatement.close();
 		connection.close();
-	
-		
+
 		return loginSuccess;
 	}
 
@@ -174,12 +173,21 @@ public class HungerImplements implements HungerDAO {
 
 	public static boolean hotelDetails(Hotel hotel) throws ClassNotFoundException, SQLException {
 		Connection connection = HungerConnection.getConnection();
-		String save = "INSERT INTO Hotels_Details (hotel_name,hotel_location,hotel_phonenumber) VALUES ( ?, ?, ?)";
+		String save = "INSERT INTO Hotels_Details (hotel_name,hotel_location,hotel_phonenumber,hotel_email,hotel_password,hotel_status) VALUES ( ?, ?, ?,?,?,?)";
 		PreparedStatement preparedStatement = connection.prepareStatement(save);
-		System.out.println(hotel.getHotelName() + "" + hotel.getHotelLocation() + "" + hotel.getHotelPhoneNumber());
+		System.out.println(hotel.getHotelName() + "" + hotel.getHotelLocation() + "" + hotel.getHotelPhoneNumber() + ""
+				+ hotel.getHotelEmail() + "" + hotel.getHotelPassword());
 		preparedStatement.setString(1, hotel.getHotelName());
 		preparedStatement.setString(2, hotel.getHotelLocation());
 		preparedStatement.setString(3, hotel.getHotelPhoneNumber());
+		preparedStatement.setString(4, hotel.getHotelEmail());
+		preparedStatement.setString(5, hotel.getHotelPassword());
+		preparedStatement.setString(6, "No");
+
+		/*
+		 * String trimName = hotel.getHotelName().trim(); String email = trimName +
+		 * "@hotels.com"; preparedStatement.setString(4, email);
+		 */
 
 		int rowsAffected = preparedStatement.executeUpdate();
 		if (rowsAffected > 0) {
@@ -198,10 +206,15 @@ public class HungerImplements implements HungerDAO {
 		try {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				int hotelId = rs.getInt("hotel_id");
 				String hotelName = rs.getString("hotel_name");
 				String hotelLocation = rs.getString("hotel_location");
 				String phoneNumber = rs.getString("hotel_phonenumber");
-				list.add(new Hotel(hotelName, hotelLocation, phoneNumber));
+				String hotelEmail = rs.getString("hotel_email");
+				String hotelPassword = rs.getString("hotel_password");
+				String hotelStatus = rs.getString("hotel_status");
+				list.add(new Hotel(hotelId, hotelName, hotelLocation, phoneNumber, hotelEmail, hotelPassword,
+						hotelStatus));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,12 +223,16 @@ public class HungerImplements implements HungerDAO {
 	}
 
 	public void updateAdmin(Hotel hotel) throws ClassNotFoundException, SQLException {
-		String save = " UPDATE Hotels_Details SET hotel_location=?, hotel_phonenumber = ? WHERE hotel_name = ?";
+		String save = "UPDATE Hotels_Details SET hotel_location=?, hotel_phonenumber = ? ,hotel_email=?,hotel_password=? WHERE hotel_name = ?";
 		try (Connection connection = HungerConnection.getConnection();
 				PreparedStatement p = connection.prepareStatement(save);) {
 			p.setString(1, hotel.getHotelLocation());
+			System.out.println("location from method : " + hotel.getHotelLocation());
 			p.setString(2, hotel.getHotelPhoneNumber());
-			p.setString(3, hotel.getHotelName());
+			p.setString(3, hotel.getHotelEmail());
+			p.setString(4, hotel.getHotelPassword());
+			p.setString(5, hotel.getHotelName());
+			System.out.println("name from method : " + hotel.getHotelName());
 			int rows = p.executeUpdate();
 			System.out.println(rows + "rows updated");
 			p.close();
@@ -223,17 +240,40 @@ public class HungerImplements implements HungerDAO {
 		}
 	}
 
+	/*
+	 * public boolean deleteHotel(String name) throws ClassNotFoundException,
+	 * SQLException { boolean rowDeleted; String delete =
+	 * "delete from Hotels_Details where hotel_name=?"; try (Connection connection =
+	 * HungerConnection.getConnection(); PreparedStatement ps =
+	 * connection.prepareStatement(delete);) { ps.setString(1, name); rowDeleted =
+	 * ps.executeUpdate() > 0; ps.close(); connection.close(); } return rowDeleted;
+	 * }
+	 * 
+	 */
+
 	public boolean deleteHotel(String name) throws ClassNotFoundException, SQLException {
-		boolean rowDeleted;
-		String delete = "delete from Hotels_Details where hotel_name=?";
+		boolean parentRowDeleted;
+		boolean childRowDeleted;
+
+		String deleteChild = "delete from Food_Details where hotel_name=?";
 		try (Connection connection = HungerConnection.getConnection();
-				PreparedStatement ps = connection.prepareStatement(delete);) {
+				PreparedStatement ps = connection.prepareStatement(deleteChild);) {
 			ps.setString(1, name);
-			rowDeleted = ps.executeUpdate() > 0;
+			parentRowDeleted = ps.executeUpdate() > 0;
+			ps.close();
+			connection.close();
+			/* return childRowDeleted; */
+		}
+
+		String deleteParent = "delete from Hotels_Details where hotel_name=?";
+		try (Connection connection = HungerConnection.getConnection();
+				PreparedStatement ps = connection.prepareStatement(deleteParent);) {
+			ps.setString(1, name);
+			parentRowDeleted = ps.executeUpdate() > 0;
 			ps.close();
 			connection.close();
 		}
-		return rowDeleted;
+		return parentRowDeleted;
 	}
 
 	public static boolean foodDetails(Food food) throws ClassNotFoundException, SQLException {
@@ -535,7 +575,7 @@ public class HungerImplements implements HungerDAO {
 		return remainingQuantity;
 	}
 
-	public void updateCartItemQuantity(CartItem cartitem, int foodId, int quantity,double total)
+	public void updateCartItemQuantity(CartItem cartitem, int foodId, int quantity, double total)
 			throws ClassNotFoundException, SQLException {
 		Connection connection = null;
 		PreparedStatement ps = null;
@@ -568,23 +608,126 @@ public class HungerImplements implements HungerDAO {
 	}
 
 	public double getFoodPrice(int foodId) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        double foodPrice=0;
-try {
-        connection = HungerConnection.getConnection();
-        String updateQuery = "select food_price from Food_Details where food_id=?";
-       
-        ps = connection.prepareStatement(updateQuery);
- ps.setInt(1, foodId);
-                    ResultSet resultSet = ps.executeQuery();
-        if (resultSet.next()) {
-             foodPrice = resultSet.getDouble("food_price");
-            System.out.println("Retrieved remaining quantity for food ID " + foodId + ": " + foodPrice);
-        }
-    }catch (Exception e) {
-    	e.printStackTrace();
-    }
-return foodPrice;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		double foodPrice = 0;
+		try {
+			connection = HungerConnection.getConnection();
+			String updateQuery = "select food_price from Food_Details where food_id=?";
+
+			ps = connection.prepareStatement(updateQuery);
+			ps.setInt(1, foodId);
+			ResultSet resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				foodPrice = resultSet.getDouble("food_price");
+				System.out.println("Retrieved remaining quantity for food ID " + foodId + ": " + foodPrice);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return foodPrice;
 	}
+
+	/*
+	 * public void updateStatus(Hotel hotel) throws ClassNotFoundException,
+	 * SQLException { Connection connection = HungerConnection.getConnection();
+	 * String query = "UPDATE Hotels_Details SET hotel_status=? WHERE hotel_id = ?";
+	 * PreparedStatement statement = connection.prepareStatement(query); try {
+	 * statement.setString(1, hotel.getHotelStatus());
+	 * System.out.println("status:"+hotel.getHotelStatus()); statement.setInt(2,
+	 * hotel.getHotelId()); statement.executeUpdate(); } finally { try {
+	 * statement.close(); } catch (SQLException e) { e.printStackTrace(); } } }
+	 */
+	public void updateStatus(Hotel hotel) throws ClassNotFoundException, SQLException {
+		Connection connection = HungerConnection.getConnection();
+		String query = "UPDATE Hotels_Details SET hotel_status=? WHERE hotel_id=?";
+		PreparedStatement statement = connection.prepareStatement(query);
+
+		try {
+			statement.setString(1, hotel.getHotelStatus());
+			System.out.println("status:" + hotel.getHotelStatus());
+			statement.setInt(2, hotel.getHotelId());
+			System.out.println("id" + hotel.getHotelId());
+			statement.executeUpdate();
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public Hotel hotelLogin(String email, String password) throws ClassNotFoundException, SQLException {
+		Connection connection = HungerConnection.getConnection();
+		Hotel hotel = null;
+		System.out.println("hoteldetails");
+		String query = "SELECT hotel_id,hotel_name,hotel_location,hotel_phonenumber,hotel_email,hotel_password,hotel_status FROM Hotels_Details WHERE hotel_email = ? AND hotel_password = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1, email);
+		ps.setString(2, password);
+
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			int hotelId = rs.getInt("hotel_id");
+			String hotelName = rs.getString("hotel_name");
+			String hotelLocation = rs.getString("hotel_location");
+			String phoneNumber = rs.getString("hotel_phonenumber");
+			String hotelEmail = rs.getString("hotel_email");
+			String hotelPassword = rs.getString("hotel_password");
+			String hotelStatus = rs.getString("hotel_status");
+
+			hotel = new Hotel(hotelId, hotelName, hotelLocation, phoneNumber, hotelEmail, hotelPassword, hotelStatus);
+		}
+
+		rs.close();
+		ps.close();
+		connection.close();
+
+		return hotel;
+	}
+
+	public static boolean businesslogin(String email, String password) throws ClassNotFoundException, SQLException {
+		Connection connection = HungerConnection.getConnection();
+
+		String query = "SELECT * from Hotels_Details WHERE hotel_email= ? AND hotel_password=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setString(1, email);
+		preparedStatement.setString(2, password);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if (resultSet.next()) {
+			return true;
+		}
+		return false;
+
+	}
+
+public Hotel getHotelId(Hotel hotel) throws ClassNotFoundException, SQLException {
+	Connection connection = HungerConnection.getConnection();
+	String query = "SELECT * FROM  WHERE mail_id=?";
+	PreparedStatement p = connection.prepareStatement(query);
+	p.setString(1, hotel.getHotelEmail());
+	ResultSet rows = p.executeQuery();
+	if (rows.next()) {
+hotel.setHotelId(rows.getInt("hotel_id"));		
+hotel.setHotelName(rows.getString("hotel_name"));
+hotel.setHotelLocation(rows.getString("hotel_location"));
+hotel.setHotelPhoneNumber(rows.getString("hotel_phonenumber"));
+hotel.setHotelEmail(rows.getString("hotel_email"));
+hotel.setHotelPassword(rows.getString("hotel_password"));
+hotel.setHotelStatus(rows.getString("hotel_status"));
+	}
+	
+	
+
+/*		user.setUserId(rows.getInt("user_id"));
+		user.setName(rows.getString("name"));
+		user.setPhoneNumber(rows.getString("phone_number"));
+		user.setPassword(rows.getString("password"));
+		user.setCity(rows.getString("city"));
+		user.setMailId(rows.getString("mail_id"));
+*/		return hotel;
+}
 }

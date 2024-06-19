@@ -82,6 +82,10 @@ public class UserUpdateServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("hunger.jsp");
 		dispatcher.forward(request, response);
+	
+	
+	
+	
 	}
 	
 	

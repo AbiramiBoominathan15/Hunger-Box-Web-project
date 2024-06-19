@@ -74,6 +74,8 @@ public class Order {
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
+	
+	
 
 	public String getOrderDelivery() {
 		return orderDelivery;

@@ -67,6 +67,13 @@ public class AdminUpdateServlet extends HttpServlet {
 		String phonenumber = request.getParameter("phonenumber");
 		System.out.println(phonenumber);
 		hotel.setHotelPhoneNumber(phonenumber);
+		String hotelEmail=request.getParameter("email");
+		System.out.println(hotelEmail);
+		hotel.setHotelEmail(hotelEmail);
+		String hotelPassword=request.getParameter("password");
+		System.out.println(hotelPassword);
+		hotel.setHotelPassword(hotelPassword);
+
 
 		try {
 			implement.updateAdmin(hotel);
@@ -85,5 +92,8 @@ public class AdminUpdateServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("hotel.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	
+	
 
 }

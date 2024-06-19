@@ -62,23 +62,11 @@ button:hover {
 <body>
 <div class="form-container">
   <h2>Hotel Details</h2>
-  
-  
-  
-  
-  
   <form action="AdminLoginServlet" method="get">
     <div class="input-group">
       <label for="hotel_name">Hotel Name</label>
       <input type="text" id="hotel_name" name="name" required>
     </div>
-    
-    
-    
-    
-    
-    
-    
     <div class="input-group">
       <label for="hotel_location">Hotel Location</label>
       <input type="text" id="hotel_location" name="location" required>
@@ -87,7 +75,14 @@ button:hover {
       <label for="hotel_phonenumber">Hotel Phone Number</label>
       <input type="text" id="hotel_phonenumber" name="phonenumber" required>
     </div>
-    
+        <div class="input-group">
+      <label for="hotel_email">Hotel Email</label>
+      <input type="text" id="hotel_email" name="email" required>
+    </div>
+            <div class="input-group">
+      <label for="hotel_email">Password</label>
+      <input type="text" id="hotel_password" name="password" required>
+    </div>
     <button type="submit">submit</button>
   </form>
 </div>

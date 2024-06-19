@@ -59,13 +59,13 @@ public class AdminLogin extends HttpServlet {
 		hotel.setHotelPhoneNumber(request.getParameter("phonenumber"));
 		try {
 			if (HungerImplements.hotelDetails(hotel)) {
-
+					
 			}
 
 			List<Hotel> list = implement.read1();
 			request.setAttribute("list", list);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Hotel.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("hotel.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -85,7 +85,8 @@ public class AdminLogin extends HttpServlet {
 		String MailId = "abiramiboominathan@gmail.com";
 		if (name.equals(adminName) && password.equals(adminPassword) && phonenumber.equals(adminphonenumber)
 				&& mailId.equals(MailId)) {
-			response.sendRedirect("Hotel1.html");
+			
+			response.sendRedirect("hotel1.html");
 		} else {
 			response.sendRedirect("AdminLogin.html");
 		}
