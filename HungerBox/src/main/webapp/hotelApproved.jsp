@@ -10,11 +10,11 @@
 <title>Insert title here</title>
 <style>
 body {
-	background-color:#ececec;
+	background-color:black;
 }
 h1 {
 	text-align: center;
-	color: #142d4c;
+	color: blue;
 }
 a {
 	text-decoration: none;
@@ -26,8 +26,8 @@ table {
 	width: 80%;
 }
 th {
-	background-color: #142d4c; 
-	background-color: #142d4c; 	
+	background-color: skyblue; 
+	background-color: skyblue; 	
 	color: white;
 }
 td {
@@ -67,7 +67,6 @@ padding-bottom: 20px;
 			<th>HotelLocation</th>
 			<th>Phonenumber</th>
 			<th>Email</th>
-			<th>Password</th>
 			<th>Status</th>
 			<th colspan="2">Actions</th>
 		</tr>
@@ -82,7 +81,6 @@ padding-bottom: 20px;
 			<td><%=hotel.getHotelLocation()%></td>
 			<td><%=hotel.getHotelPhoneNumber()%></td>
 			<td><%=hotel.getHotelEmail() %></td>
-			<td><%=hotel.getHotelPassword() %></td>
 			<td><%=hotel.getHotelStatus() %></td>
 			
 						<td>

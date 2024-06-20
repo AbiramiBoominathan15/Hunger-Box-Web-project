@@ -63,8 +63,7 @@ public class AdminLoginServlet extends HttpServlet {
 			HungerImplements.hotelDetails(hotel);
 			List<Hotel> list1 = implement.read1();
 			request.setAttribute("list", list1);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("HomePage.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("loginPage.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -105,7 +104,9 @@ public class AdminLoginServlet extends HttpServlet {
 //    }
 		String name = request.getParameter("name");
 		String phoneNumber = request.getParameter("phonenumber");
+		@SuppressWarnings({ "unused", "unused" })
 		String password = request.getParameter("password");
+		@SuppressWarnings({ "unused", "unused" })
 		String city = request.getParameter("city");
 		String mailId = request.getParameter("mailId");
 

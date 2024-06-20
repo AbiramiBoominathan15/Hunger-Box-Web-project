@@ -114,6 +114,21 @@ public class Hotel {
 
 	
 	
+	public Hotel(int hotelId2, String hotelName2, String hotelLocation2, String phoneNumber, String hotelEmail2,
+			String hotelStatus2) {
+		  this.hotelId=hotelId2;
+		this.hotelName = hotelName2; 
+		  this.hotelLocation = hotelLocation2;
+		  this.hotelPhoneNumber = phoneNumber;
+			this.hotelEmail = hotelEmail2;
+			this.hotelStatus=hotelStatus2;
+
+
+	}
+
+
+
+
 	public int hotelId;
 	public String hotelName;
 	public String hotelType;

@@ -146,15 +146,19 @@ public class HungerImplements implements HungerDAO {
 		}
 	}
 
-	/*
-	 * public boolean delete(String name) throws ClassNotFoundException,
-	 * SQLException { boolean rowDeleted; String delete =
-	 * "delete from User_Details where name=?"; try (Connection connection =
-	 * HungerConnection.getConnection(); PreparedStatement ps =
-	 * connection.prepareStatement(delete);) { ps.setString(1, name); rowDeleted =
-	 * ps.executeUpdate() > 0; ps.close(); connection.close(); } return rowDeleted;
-	 * }
-	 */
+	public boolean delete(String name) throws ClassNotFoundException, SQLException {
+		boolean rowDeleted;
+		String delete = "delete from User_Details where name=?";
+		try (Connection connection = HungerConnection.getConnection();
+				PreparedStatement ps = connection.prepareStatement(delete);) {
+			ps.setString(1, name);
+			rowDeleted = ps.executeUpdate() > 0;
+			ps.close();
+			connection.close();
+		}
+		return rowDeleted;
+	}
+
 	public static boolean authenticate(String name, String password) {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
 
@@ -704,30 +708,93 @@ public class HungerImplements implements HungerDAO {
 
 	}
 
-public Hotel getHotelId(Hotel hotel) throws ClassNotFoundException, SQLException {
-	Connection connection = HungerConnection.getConnection();
-	String query = "SELECT * FROM  WHERE mail_id=?";
-	PreparedStatement p = connection.prepareStatement(query);
-	p.setString(1, hotel.getHotelEmail());
-	ResultSet rows = p.executeQuery();
-	if (rows.next()) {
-hotel.setHotelId(rows.getInt("hotel_id"));		
-hotel.setHotelName(rows.getString("hotel_name"));
-hotel.setHotelLocation(rows.getString("hotel_location"));
-hotel.setHotelPhoneNumber(rows.getString("hotel_phonenumber"));
-hotel.setHotelEmail(rows.getString("hotel_email"));
-hotel.setHotelPassword(rows.getString("hotel_password"));
-hotel.setHotelStatus(rows.getString("hotel_status"));
-	}
-	
-	
+	public Hotel getHotelId(Hotel hotel) throws ClassNotFoundException, SQLException {
+		Connection connection = HungerConnection.getConnection();
+		String query = "SELECT * FROM  WHERE mail_id=?";
+		PreparedStatement p = connection.prepareStatement(query);
+		p.setString(1, hotel.getHotelEmail());
+		ResultSet rows = p.executeQuery();
+		if (rows.next()) {
+			hotel.setHotelId(rows.getInt("hotel_id"));
+			hotel.setHotelName(rows.getString("hotel_name"));
+			hotel.setHotelLocation(rows.getString("hotel_location"));
+			hotel.setHotelPhoneNumber(rows.getString("hotel_phonenumber"));
+			hotel.setHotelEmail(rows.getString("hotel_email"));
+			hotel.setHotelPassword(rows.getString("hotel_password"));
+			hotel.setHotelStatus(rows.getString("hotel_status"));
+		}
 
-/*		user.setUserId(rows.getInt("user_id"));
-		user.setName(rows.getString("name"));
-		user.setPhoneNumber(rows.getString("phone_number"));
-		user.setPassword(rows.getString("password"));
-		user.setCity(rows.getString("city"));
-		user.setMailId(rows.getString("mail_id"));
-*/		return hotel;
-}
+		/*
+		 * user.setUserId(rows.getInt("user_id")); user.setName(rows.getString("name"));
+		 * user.setPhoneNumber(rows.getString("phone_number"));
+		 * user.setPassword(rows.getString("password"));
+		 * user.setCity(rows.getString("city"));
+		 * user.setMailId(rows.getString("mail_id"));
+		 */ return hotel;
+	}
+
+	/*
+	 * public List<Hotel> readHotel() throws ClassNotFoundException, SQLException {
+	 * List<Hotel> list = new ArrayList<>(); Connection connection =
+	 * HungerConnection.getConnection(); String update =
+	 * "select * from Hotels_Details"; PreparedStatement ps =
+	 * connection.prepareStatement(update); try { ResultSet rs = ps.executeQuery();
+	 * while (rs.next()) { int hotelId = rs.getInt("hotel_id"); String hotelName =
+	 * rs.getString("hotel_name"); String hotelLocation =
+	 * rs.getString("hotel_location"); String phoneNumber =
+	 * rs.getString("hotel_phonenumber"); String hotelEmail =
+	 * rs.getString("hotel_email"); //String hotelPassword =
+	 * rs.getString("hotel_password"); String hotelStatus =
+	 * rs.getString("hotel_status"); list.add(new Hotel(hotelId, hotelName,
+	 * hotelLocation, phoneNumber, hotelEmail, hotelStatus)); } } catch
+	 * (SQLException e) { e.printStackTrace(); } return list; }
+	 */
+	public List<Hotel> readHotel() throws ClassNotFoundException, SQLException {
+		List<Hotel> list = new ArrayList<>();
+		Connection connection = HungerConnection.getConnection();
+		String update = "select hotel_id,hotel_name,hotel_location,hotel_phonenumber,hotel_email,hotel_status from Hotels_Details";
+		PreparedStatement ps = connection.prepareStatement(update);
+		try {
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int hotelId = rs.getInt("hotel_id");
+				String hotelName = rs.getString("hotel_name");
+				String hotelLocation = rs.getString("hotel_location");
+				String phoneNumber = rs.getString("hotel_phonenumber");
+				String hotelEmail = rs.getString("hotel_email");
+				// String hotelPassword = rs.getString("hotel_password");
+				String hotelStatus = rs.getString("hotel_status");
+				list.add(new Hotel(hotelId, hotelName, hotelLocation, phoneNumber, hotelEmail, hotelStatus));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+
+	}
+
+	public List<UserDetails> customerDetails() throws ClassNotFoundException, SQLException {
+		List<UserDetails> list = new ArrayList<>();
+		Connection connection = HungerConnection.getConnection();
+		String update = "select name,phone_number,city,mail_id from User_Details";
+		PreparedStatement ps = connection.prepareStatement(update);
+		try {
+//		System.out.println(ps);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String phoneNumber = rs.getString("phone_number");
+				/*
+				 * String password = rs.getString("password");
+				 */
+				String city = rs.getString("city");
+				String mailId = rs.getString("mail_id");
+				list.add(new UserDetails(name, phoneNumber, city, mailId));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

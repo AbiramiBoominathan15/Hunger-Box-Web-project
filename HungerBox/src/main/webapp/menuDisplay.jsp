@@ -208,8 +208,8 @@ function addToCartClicked(foodId, price) {
 			<input type="submit"  name="action" value="viewCart">
 		</form>
 	</div>
-	<h1>Food Details</h1>
-	
+<!-- 	<h1>Food Details</h1>
+ -->	
 
 	<%
 	try {

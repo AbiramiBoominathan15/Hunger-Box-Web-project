@@ -10,11 +10,11 @@
 <title>Insert title here</title>
 <style>
 body {
-	background-color:#ececec;
+	background-color:black;
 }
 h1 {
 	text-align: center;
-	color: #142d4c;
+	color: blue;
 }
 a {
 	text-decoration: none;
@@ -26,8 +26,8 @@ table {
 	width: 80%;
 }
 th {
-	background-color: #142d4c; 
-	background-color: #142d4c; 	
+	background-color: skyblue; 
+	background-color: skyblue; 	
 	color: white;
 }
 td {
@@ -62,14 +62,12 @@ padding-bottom: 20px;
 	
 	<table border="1">
 		<tr>
-		<th>HotelId</th>
 			<th>HotelName</th>
 			<th>HotelLocation</th>
 			<th>Phonenumber</th>
 			<th>Email</th>
 			<th>Password</th>
-			<th>Status</th>
-			<th colspan="2">Actions</th>
+			<th colspan="2">status</th>
 		</tr>
 		<%
 		List<Hotel> list1 = (ArrayList<Hotel>) request.getAttribute("list");
@@ -77,43 +75,19 @@ padding-bottom: 20px;
 			for (Hotel hotel : list1) {
 		%>
 		<tr>
-		<td><%=hotel.getHotelId() %></td>
 		<td><%=hotel.getHotelName()%></td>
 			<td><%=hotel.getHotelLocation()%></td>
 			<td><%=hotel.getHotelPhoneNumber()%></td>
 			<td><%=hotel.getHotelEmail() %></td>
 			<td><%=hotel.getHotelPassword() %></td>
-			<td><%=hotel.getHotelStatus() %></td>
-			
-						<td>
-<form action="AdminApproved" method="post">
-                    <input type="hidden" name="hotelId"
-                        value="<%=hotel.getHotelId() %>"> 
-                        <select
-                        name="approved">
-                        <option>Select</option>
-                        <option value="no">no</option>
-                        <option value="yes">yes</option>
-                    </select><input type="submit" name="approved" value="update"
-                        style="margin: 0 15px">
-                </form></td>
-					
 			<td>
-			<form action="AdminHotelDelete" method="post">
-					<input type="hidden" name="action" value="Delete"> <input
-						type="hidden" name="delete" value="<%=hotel.getHotelName()%>">
-					<button type="submit" title="delete">Delete</button>
-				</form>
-			</td>
+				<select name="approved">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</select>
 			</td>
 			
-<%-- 			<td><input type="hidden" name="location"
-				value="<%=hotel.getHotelName()%>"> <a
-				href="updateHotel.html?editId=<%=hotel.getHotelName()%>">
-					<button type="button">Update</button>
-			</a></td>
-			<td>
- --%> 					
+			
 			<%
 			}
 			}

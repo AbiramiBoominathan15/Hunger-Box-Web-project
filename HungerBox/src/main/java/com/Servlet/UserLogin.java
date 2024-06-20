@@ -77,6 +77,7 @@ public class UserLogin extends HttpServlet {
 						Hotel hotel = implement.hotelLogin(mailId, password);
 						if (hotel != null && hotel.getHotelStatus().equalsIgnoreCase("yes")) {
 							HttpSession session = request.getSession();
+		                    session.setAttribute("hotelId", hotel.getHotelId()); 
 							session.setAttribute("hotel", hotel);
 							response.sendRedirect("hotelmenu.jsp");
 						} else {

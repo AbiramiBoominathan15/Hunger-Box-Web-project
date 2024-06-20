@@ -124,4 +124,11 @@ public class UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
+	public UserDetails(String name2, String phoneNumber2, String city2, String mailId2) {
+		this.name = name2;
+		this.phoneNumber = phoneNumber2;
+		this.city = city2;
+		this.mailId = mailId2;
+	}
+
 }
